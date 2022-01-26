@@ -95,9 +95,13 @@ class CaborController extends BaseController
 			$parameters = [
 				'sport_cabor_created_by' 	=> $this->libIonix->getUserData(NULL, 'object')->user_id,
 				'sport_cabor_id !=' 	=> '1',
+				'year' 													=> $this->session->year,
 			];
 		} else {
-			$parameters = ['sport_cabor_id !=' => 1];
+			$parameters = [
+				'sport_cabor_id !=' => 1,
+				'year' 													=> $this->session->year,
+			];
 		}
 
 		foreach ($this->modCabor->fetchData($parameters, true)->getResult() as $row) {
@@ -222,9 +226,11 @@ class CaborController extends BaseController
 			'sport_cabor_name'						=> ucwords($this->request->getPost('name')),
 			'sport_cabor_leader'					=> ucwords($this->request->getPost('leader')),
 			'sport_cabor_address'				=> !empty($this->request->getPost('address')) ? $this->request->getPost('address') : NULL,
-			'sport_cabor_approve'				=> isStakeholder() == false ? 3 : 2,
-			'sport_cabor_approve_by'			=> isStakeholder() == false ? $this->libIonix->getUserData(NULL, 'object')->user_id : NULL,
+			'sport_cabor_approve'				=> isStakeholder() == true && $this->configIonix->allowVerifycation == true ? 2 : 3,
+			'sport_cabor_approve_by'			=> isStakeholder() == true && $this->configIonix->allowVerifycation == true ? NULL : $this->libIonix->getUserData(NULL, 'object')->user_id,
+			'year' 								=> $this->session->year,
 			'sport_cabor_created_by'			=> $this->libIonix->getUserData(NULL, 'object')->user_id,
+			
 		];
 
 		if (!empty($this->request->getPost('code'))) {
@@ -320,8 +326,7 @@ class CaborController extends BaseController
 			'sport_cabor_name'						=> ucwords($this->request->getPost('name')),
 			'sport_cabor_leader'					=> ucwords($this->request->getPost('leader')),
 			'sport_cabor_address'				=> !empty($this->request->getPost('address')) ? $this->request->getPost('address') : NULL,
-			'sport_cabor_approve'				=> isStakeholder() == false ? 3 : 2,
-			'sport_cabor_approve_by'			=> isStakeholder() == false ? $this->libIonix->getUserData(NULL, 'object')->user_id : NULL,
+			'sport_cabor_approve'				=> isStakeholder() == true && $this->configIonix->allowVerifycation == true ? 2 : 3,
 		];
 
 		if (!empty($this->request->getPost('code'))) {

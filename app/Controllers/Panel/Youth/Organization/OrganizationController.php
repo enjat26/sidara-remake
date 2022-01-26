@@ -227,9 +227,12 @@ class OrganizationController extends BaseController
 			'youth_organization_leader'					=> ucwords($this->request->getPost('leader')),
 			'youth_organization_number_of_member'					=> ucwords($this->request->getPost('number_of_member')),
 			'youth_organization_address'				=> !empty($this->request->getPost('address')) ? $this->request->getPost('address') : NULL,
-			'youth_organization_approve'				=> isStakeholder() == false ? 3 : 2,
-			'youth_organization_approve_by'			=> isStakeholder() == false ? $this->libIonix->getUserData(NULL, 'object')->user_id : NULL,
+			'youth_organization_approve'                => isStakeholder() == true && $this->configIonix->allowVerifycation == true ? 2 : 3,
+            'youth_organization_approve_by'            => isStakeholder() == true && $this->configIonix->allowVerifycation == true ? NULL : $this->libIonix->getUserData(NULL, 'object')->user_id,
+            'year'                              => $this->session->year,
 			'youth_organization_created_by'			=> $this->libIonix->getUserData(NULL, 'object')->user_id,
+
+			
 		];
 
 		if (!empty($this->request->getPost('code'))) {
@@ -326,8 +329,7 @@ class OrganizationController extends BaseController
 			'youth_organization_leader'					=> ucwords($this->request->getPost('leader')),
 			'youth_organization_number_of_member'					=> ucwords($this->request->getPost('number_of_member')),
 			'youth_organization_address'				=> !empty($this->request->getPost('address')) ? $this->request->getPost('address') : NULL,
-			'youth_organization_approve'				=> isStakeholder() == false ? 3 : 2,
-			'youth_organization_approve_by'			=> isStakeholder() == false ? $this->libIonix->getUserData(NULL, 'object')->user_id : NULL,
+			'youth_organization_approve'                => isStakeholder() == true && $this->configIonix->allowVerifycation == true ? 2 : 3,
 		];
 
 		if (!empty($this->request->getPost('code'))) {

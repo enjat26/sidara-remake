@@ -28,6 +28,21 @@
 <!-- end page title -->
 
 <div class="row">
+    <div class="col-md-12 col-xl-12">
+        <div class="alert border-0 border-start border-5 border-info py-2">
+            <div class="d-flex align-items-center">
+                <div class="font-size-20 text-info"><i class="mdi mdi-information-variant"></i></div>
+                <div class="ms-3">
+                    <div>
+                        Halaman ini telah sesuaikan datanya dengan <strong>Tahun</strong> yang dipilih pada saat <strong>Login</strong>.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
