@@ -97,9 +97,12 @@ class ClubController extends BaseController
 		if (isStakeholder() == true) {
 			$parameters = [
 				'sport_club_created_by' 	=> $this->libIonix->getUserData(NULL, 'object')->user_id,
+				'year' 								=> $this->session->year,
 			];
 		} else {
-			$parameters = NULL;
+			$parameters = [
+				'year' 								=> $this->session->year,
+			];
 		}
 
 		foreach ($this->modClub->fetchData($parameters, true)->getResult() as $row) {
@@ -225,9 +228,10 @@ class ClubController extends BaseController
 			'sport_club_name'						=> ucwords($this->request->getPost('name')),
 			'sport_club_leader'					=> ucwords($this->request->getPost('leader')),
 			'sport_club_address'				=> !empty($this->request->getPost('address')) ? $this->request->getPost('address') : NULL,
-			'sport_club_approve'				=> isStakeholder() == false ? 3 : 2,
-			'sport_club_approve_by'			=> isStakeholder() == false ? $this->libIonix->getUserData(NULL, 'object')->user_id : NULL,
+			'sport_club_approve'				=> isStakeholder() == true && $this->configIonix->allowVerifycation == true ? 2 : 3,
+			'sport_club_approve_by'			=> isStakeholder() == true && $this->configIonix->allowVerifycation == true ? NULL : $this->libIonix->getUserData(NULL, 'object')->user_id,
 			'sport_club_created_by'			=> $this->libIonix->getUserData(NULL, 'object')->user_id,
+			'year' 								=> $this->session->year,
 		];
 
 		if (!empty($this->request->getPost('code'))) {
@@ -323,8 +327,7 @@ class ClubController extends BaseController
 			'sport_club_name'						=> ucwords($this->request->getPost('name')),
 			'sport_club_leader'					=> ucwords($this->request->getPost('leader')),
 			'sport_club_address'				=> !empty($this->request->getPost('address')) ? $this->request->getPost('address') : NULL,
-			'sport_club_approve'				=> isStakeholder() == false ? 3 : 2,
-			'sport_club_approve_by'			=> isStakeholder() == false ? $this->libIonix->getUserData(NULL, 'object')->user_id : NULL,
+			'sport_club_approve'				=> isStakeholder() == true && $this->configIonix->allowVerifycation == true ? 2 : 3,
 		];
 
 		if (!empty($this->request->getPost('code'))) {

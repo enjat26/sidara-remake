@@ -708,6 +708,26 @@ $routes->group($routePanel . 'sport_achievements', ['filter' => 'login'], functi
 	}
 });
 
+$routes->group($routePanel.'sport_assets', ['filter' => 'login'], function($routes) {
+	$routes->get('/', 'Panel\Sport\Asset\AssetController::index');
+	$routes->get('export/(:segment)', 'Panel\Sport\Asset\ExportController::index');
+	$routes->get('(:segment)/manage', 'Panel\Sport\Asset\AssetController::detail');
+	if (ENVIRONMENT !== 'development') {
+		$routes->get('get', 'Panel\Sport\Asset\AssetController::get', ['filter' => 'request']);
+		$routes->get('show', 'Panel\Sport\Asset\AssetController::show', ['filter' => 'request']);
+		$routes->add('list', 'Panel\Sport\Asset\AssetController::list', ['filter' => 'request']);
+		$routes->post('store', 'Panel\Sport\Asset\AssetController::store', ['filter' => 'request']);
+		$routes->post('update', 'Panel\Sport\Asset\AssetController::update', ['filter' => 'request']);
+		$routes->delete('delete', 'Panel\Sport\Asset\AssetController::delete', ['filter' => 'request']);
+	} else {
+		$routes->add('get', 'Panel\Sport\Asset\AssetController::get', ['filter' => 'request']);
+		$routes->add('show', 'Panel\Sport\Asset\AssetController::show', ['filter' => 'request']);
+		$routes->add('list', 'Panel\Sport\Asset\AssetController::list', ['filter' => 'request']);
+		$routes->add('store', 'Panel\Sport\Asset\AssetController::store', ['filter' => 'request']);
+		$routes->add('update', 'Panel\Sport\Asset\AssetController::update', ['filter' => 'request']);
+		$routes->add('delete', 'Panel\Sport\Asset\AssetController::delete', ['filter' => 'request']);
+	}
+});
 /*
  * --------------------------------------------------------------------
  * Additional Routing

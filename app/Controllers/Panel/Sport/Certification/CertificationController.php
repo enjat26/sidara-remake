@@ -75,16 +75,13 @@ class CertificationController extends BaseController
 
 	private function listCertificationDT()
 	{
+		$parameters = [
+			'sport_certifications.year' 													=> $this->session->year,
+		];
 		$i 		= $this->request->getVar('start') + 1;
 		$data = [];
-		foreach ($this->modCertification->fetchData(NULL, true)->getResult() as $row) {
+		foreach ($this->modCertification->fetchData($parameters, true)->getResult() as $row) {
 			$subArray = [];
-
-			if ($row->sport_cabor_avatar) {
-				$caborAvatar	= core_url('content/cabor/'.$this->libIonix->Encode($row->sport_cabor_id).'/'.$this->libIonix->Encode($row->sport_cabor_avatar));
-			} else {
-				$caborAvatar  = $this->configIonix->mediaFolder['image'].'default/logo.jpg';
-			}
 
 			if ($row->sport_certification_number) {
 				$certificationNumber = $row->sport_certification_number;
@@ -101,15 +98,8 @@ class CertificationController extends BaseController
 			$subArray[] = '<p class="text-muted text-center mb-0"><strong>'.$i++.'.</strong></p>';
 			$subArray[] = '<h5 class="text-truncate font-size-14 mb-0">'.$row->sport_certification_name.'</h5>';
 			$subArray[] = '<p class="text-muted text-center mb-0">'.parseGender($row->sport_certification_gender).'</p>';
-			$subArray[] = '<div class="media">
-												<div class="align-self-center me-3">
-													<img src="'.$caborAvatar.'" alt="'.$row->sport_cabor_name.'" class="rounded-circle avatar-sm">
-												</div>
-                        <div class="media-body overflow-hidden my-auto">
-                            <h5 class="text-truncate font-size-14 mb-0">'.$row->sport_cabor_name.'</h5>
-														<p class="text-muted mb-0">'.$row->sport_cabor_code.'</p>
-                        </div>
-                    </div>';
+			$subArray[] = '<h5 class="text-truncate font-size-14 mb-0">'.$row->sport_cabor_name.'</h5>
+							<p class="text-muted mb-0">'.$row->sport_cabor_code.'</p>';
 			$subArray[] = '<p class="text-muted text-center mb-0">'.$certificationNumber.'</p>';
 			$subArray[] = '<p class="text-muted text-center mb-0">'.$row->sport_certification_category.'</p>';
 			$subArray[] = '<p class="text-muted text-center mb-0">'.$row->sport_certification_level.'</p>';
@@ -165,6 +155,7 @@ class CertificationController extends BaseController
 			'sport_certification_level'					=> ucwords($this->request->getPost('level')),
 			'sport_certification_year'					=> $this->request->getPost('year'),
 			'sport_certification_explanation'		=> !empty($this->request->getPost('explanation')) ? ucwords($this->request->getPost('explanation')) : NULL,
+			'year' 													=> $this->session->year,
 		];
 
 		$output = [
