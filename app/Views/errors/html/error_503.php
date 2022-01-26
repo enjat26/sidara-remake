@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+	<meta charset="utf-8"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title><?= strtoupper(config('ionix')->appCode);?> <?= ucwords(config('ionix')->appType);?> - Situs sedang dalam perbaikan</title>
+	<meta name="site-url" content="<?= BASE . PUBLICURL;?>">
+	<meta name="author" content="Uben Wisnu">
+
+	<!-- Google font-->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900&amp;display=swap" rel="stylesheet">
+
+	<!-- App css -->
+	<link id="bootstrap-style" href="<?= config('ionix')->assetsFolder['panel']['stylesheet'];?>bootstrap.min.css" rel="stylesheet" type="text/css" />
+	<link href="<?= config('ionix')->assetsFolder['panel']['stylesheet'];?>icons.min.css" rel="stylesheet" type="text/css" />
+	<link id="app-style" href="<?= config('ionix')->assetsFolder['panel']['stylesheet'];?>app.min.css" rel="stylesheet" type="text/css" />
+	<link href="<?= config('ionix')->assetsFolder['panel']['stylesheet'];?>custom.css" rel="stylesheet" type="text/css" />
+
+	<!-- App favicon -->
+	<link rel="shortcut icon" href="<?= BASE . PUBLICURL . 'favicon.ico';?>" type="image/ico">
+
+	<style media="screen">
+		body {
+			background-image: url(<?= BASE . PUBLICURL . 'image/background/abstract.png';?>);
+			background-size: cover;
+			background-repeat: no-repeat;
+			background-position: center;
+			width: 100%;
+			height: 100%;
+		}
+	</style>
+
+</head>
+
+<body>
+
+	<section class="my-5 pt-sm-5">
+			<div class="container">
+					<div class="row">
+							<div class="col-12 text-center">
+									<div class="home-wrapper">
+											<div class="mb-5">
+													<a href="index.html" class="d-block auth-logo">
+															<img src="<?= config('ionix')->appLogo['landscape_dark'];?>" alt="" height="60" class="auth-logo-dark mx-auto">
+															<img src="<?= config('ionix')->appLogo['landscape_light'];?>" alt="" height="20" class="auth-logo-light mx-auto">
+													</a>
+											</div>
+
+
+											<div class="row justify-content-center">
+													<div class="col-lg-6">
+															<div class="maintenance-img">
+																	<img src="<?= config('ionix')->mediaFolder['image'];?>content/503.png" alt="" class="img-fluid mx-auto d-block" height="100">
+															</div>
+													</div>
+											</div>
+											<h3 class="mt-5">Site is Under Maintenance</h3>
+											<p><?= esc($message);?></p>
+
+											<div class="row">
+													<div class="col-md-4">
+															<div class="card mt-4 maintenance-box">
+																	<div class="card-body">
+																			<i class="bx bx-broadcast mb-4 h1 text-primary"></i>
+																			<h5 class="font-size-15 text-uppercase">Mengapa Situs Tidak Dapat Diakses?</h5>
+																			<p class="text-muted mb-0">Pada prinsipnya, kendala akses pada website bisa terjadi karena beberapa faktor, saat ini situs sedang dalam perawatan atau perbaikan.</p>
+																	</div>
+															</div>
+													</div>
+													<div class="col-md-4">
+															<div class="card mt-4 maintenance-box">
+																	<div class="card-body">
+																			<i class="bx bx-time-five mb-4 h1 text-primary"></i>
+																			<h5 class="font-size-15 text-uppercase">Kapan Selesai?</h5>
+																			<p class="text-muted mb-0">Kami tidak dapat memastikan kapan perawatan atau perbaikan ini akan sesesai, tetapi akan kami usahakan secepatnya.</p>
+																	</div>
+															</div>
+													</div>
+													<div class="col-md-4">
+															<div class="card mt-4 maintenance-box">
+																	<div class="card-body">
+																			<i class="bx bx-envelope mb-4 h1 text-primary"></i>
+																			<h5 class="font-size-15 text-uppercase">Apakah Anda Butuh Bantuan?</h5>
+																			<p class="text-muted mb-0">Jika Anda memerlukan bantuan, Anda dapat mengirimkan kami sebuah pesan ke <a href="mailto:support@ionixeternal.co.id" class="text-decoration-underline">support@ionixeternal.co.id</a></p>
+																	</div>
+															</div>
+													</div>
+											</div>
+											<!-- end row -->
+									</div>
+							</div>
+					</div>
+			</div>
+	</section>
+
+	<!-- Right Sidebar -->
+  <div class="right-bar hidden">
+      <div data-simplebar class="h-100">
+          <div class="rightbar-title d-flex align-items-center px-3 py-4">
+              <h5 class="m-0 me-2">Personalisasi</h5>
+
+              <a href="javascript:void(0);" class="right-bar-toggle ms-auto">
+                  <i class="mdi mdi-close noti-icon"></i>
+              </a>
+          </div>
+
+          <!-- Settings -->
+          <hr class="mt-0" />
+          <h6 class="text-center mb-0" key="t-theme">Pilih Tema</h6>
+
+          <div class="p-4">
+              <div class="mb-2">
+                  <img src="<?= config('ionix')->mediaFolder['image'].'preview/layout-1.jpg';?>" class="img-fluid img-thumbnail" alt="">
+              </div>
+
+              <div class="form-check form-switch mb-3">
+                  <input class="form-check-input theme-choice" type="checkbox" id="light-mode-switch" data-bsStyle="<?= config('ionix')->assetsFolder['auth']['stylesheet'].'bootstrap.min.css';?>" data-appStyle="<?= config('ionix')->assetsFolder['auth']['stylesheet'].'app.min.css';?>" checked>
+                  <label class="form-check-label" for="light-mode-switch">Mode Terang</label>
+              </div>
+
+              <div class="mb-2">
+                  <img src="<?= config('ionix')->mediaFolder['image'].'preview/layout-2.jpg';?>" class="img-fluid img-thumbnail" alt="">
+              </div>
+              <div class="form-check form-switch mb-3">
+                  <input class="form-check-input theme-choice" type="checkbox" id="combination-mode-switch" data-bsStyle="<?= config('ionix')->assetsFolder['auth']['stylesheet'].'bootstrap.min.css';?>" data-appStyle="<?= config('ionix')->assetsFolder['auth']['stylesheet'].'app.min.css';?>">
+                  <label class="form-check-label" for="combination-mode-switch">Mode Kombinasi</label>
+              </div>
+
+              <div class="mb-2">
+                  <img src="<?= config('ionix')->mediaFolder['image'].'preview/layout-3.jpg';?>" class="img-fluid img-thumbnail" alt="">
+              </div>
+              <div class="form-check form-switch mb-5">
+                  <input class="form-check-input theme-choice" type="checkbox" id="dark-mode-switch" data-bsStyle="<?= config('ionix')->assetsFolder['auth']['stylesheet'].'bootstrap-dark.min.css';?>" data-appStyle="<?= config('ionix')->assetsFolder['auth']['stylesheet'].'app-dark.min.css';?>">
+                  <label class="form-check-label" for="dark-mode-switch">Mode Gelap</label>
+              </div>
+          </div>
+
+      </div>
+      <!-- end slimscroll-menu-->
+  </div>
+  <!-- /Right-bar -->
+
+  <!-- Right bar overlay-->
+  <div class="rightbar-overlay"></div>
+
+  <!-- Plugin js-->
+	<script type="text/javascript" src="<?= config('ionix')->assetsFolder['auth']['library'];?>jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="<?= config('ionix')->assetsFolder['auth']['library'];?>bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript" src="<?= config('ionix')->assetsFolder['auth']['library'];?>metismenu/metisMenu.min.js"></script>
+	<script type="text/javascript" src="<?= config('ionix')->assetsFolder['auth']['library'];?>simplebar/simplebar.min.js"></script>
+	<script type="text/javascript" src="<?= config('ionix')->assetsFolder['auth']['library'];?>node-waves/waves.min.js"></script>
+
+</body>
+
+</html>

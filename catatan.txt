@@ -1,0 +1,52 @@
+Akun
+
+- Dispora (All)
+	- Jumlah Pemuda
+	- Pelatihan Pemuda
+	- Prestasi Pemuda
+	- Sarana & Prasarana
+	
+	- Cabang Olahraga <> Pendidikan <>
+		- Organisasi Olahraga
+		- Sertifikasi Pelatih/Wasit/Juri
+		- SDM Olahraga (Atlet) - PPLP
+		- Kejuaraan
+		- Prestasi Olahraga
+		- Sarana & Prasarana
+	
+- Kepemudaan
+	*KNPI (Jumlah Anggota, Ketua, Priode, Upload SK)
+		- Organisasi yang dibawahnya
+		- Prestasi Pemuda	
+	*KUWARDA (Jumlah Anggota, Ketua, Priode, Upload SK)
+		- Organisasi yang dibawahnya
+		- Prestasi Pramuka
+	*FKP (Jumlah Anggota, Ketua, Priode, Upload SK)
+		- Organisasi yang dibawahnya
+		- Prestasi Kewirausahaan Pemuda
+
+- Olahraga
+	*KONI (Jumlah Anggota, Ketua, Priode, Upload SK)
+		- Cabang Olahraga <> Prestasi <>
+			- Organisasi Olahraga
+				- Klub Olahraga
+			- SDM Olahraga (Atlet/Pelatih/Juri/Wasit) - Senior
+			- Kejuaraan
+			- Prestasi Olahraga
+			- Sarana & Prasarana
+	*KORMI (Jumlah Anggota, Ketua, Priode, Upload SK)
+		- Cabang Olahraga <> Prestasi <>
+			- Organisasi Olahraga
+				- Klub Olahraga
+			- SDM Olahraga (Atlet/Pelatih/Juri/Wasit) - Senior
+			- Kejuaraan
+			- Prestasi Olahraga
+			- Sarana & Prasarana
+	*NPC (Jumlah Anggota, Ketua, Priode, Upload SK)
+		- Cabang Olahraga <> Disabilitas <>
+			- Organisasi Olahraga
+				- Klub Olahraga
+			- SDM Olahraga (Atlet/Pelatih/Juri/Wasit) - Senior
+			- Kejuaraan
+			- Prestasi Olahraga
+			- Sarana & Prasarana

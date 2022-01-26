@@ -1,0 +1,307 @@
+@charset "UTF-8";
+
+/*! -----------------------------------------------------------------------------------
+
+    Name: Ionix Eternal Studio
+    URL: https://ionixeternal.co.id/
+    Description: This is Style for Fix CSS
+    Author: Uben Wisnu
+    Author URI: https://www.instagram.com/ubenwisnu
+
+-----------------------------------------------------------------------------------
+*/
+
+.hidden {
+  display: none;
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+.clearfix {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+/*-------------------
+        Footer
+--------------------*/
+
+.footer {
+  height: auto!important;
+}
+
+/*-------------------
+      Timeline
+--------------------*/
+
+.verti-timeline .event-list {
+  padding: 0 0 30px 30px!important;
+}
+
+/*-------------------
+        Alert
+--------------------*/
+
+.alert {
+  box-shadow: 0 0 2rem 0 rgb(136 152 170 / 15%);
+}
+
+/*-------------------
+         Image
+--------------------*/
+
+.user-avatar {
+  max-width: 200px !important; /* any size */
+  max-height: 200px !important; /* any size */
+  margin: auto;
+  position: relative;
+  margin-top: -70px;
+}
+
+.user-avatar .avatar-inner {
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.user-avatar .avatar-inner a i {
+  display: inline-block;
+}
+
+.product-ribbon {
+  z-index: 2;
+}
+
+/*-------------------
+         Form
+--------------------*/
+
+form .form-group {
+  margin-bottom: 1rem;
+}
+
+.dropify-wrapper .dropify-message span.file-icon p {
+  font-size: 20px;
+}
+
+/*-------------------
+         Table
+--------------------*/
+
+table tr.unread {
+  background-color: #f6f6f6;
+  font-weight: 500;
+  color: #292d32;
+}
+
+/*-------------------
+        Card
+--------------------*/
+
+/* .account-pages {
+  position: fixed;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+} */
+
+/*-------------------
+    Select 2
+--------------------*/
+
+.select2-container {
+  width: 100%!important;
+  padding: 0;
+}
+
+/*-------------------
+      Scroll Bar
+--------------------*/
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background: rgba(0,0,0,0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: rgba(0,0,0,0.2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0,0,0,0.4);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: rgba(0,0,0,.9);
+}
+
+/*-------------------
+    Vertical Text
+--------------------*/
+
+.vertical-text {
+  position: absolute;
+  width:1px;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-size: 15px;
+  right: 0px;
+}
+
+/*-------------------
+      Separator
+--------------------*/
+
+.separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.separator::before, .separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
+}
+
+.separator::before {
+    margin-right: .25em;
+}
+
+.separator::after {
+    margin-left: .25em;
+}
+
+/*-------------------
+    Input Outline
+--------------------*/
+
+input[type=text], input[type=password], input[type=email], input[type=number], textarea {
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  outline: none;
+  /* border: 1px solid #DDDDDD; */
+}
+
+input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, input[type=number]:focus, textarea:focus {
+  box-shadow: 0 0 5px rgba(212, 219, 249);
+  border: 1px solid rgba(212, 219, 249);
+}
+
+/*-------------------
+    Animated Items
+--------------------*/
+
+.animated-list-item {
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+@media (min-width: 992px) {
+  .animated-list-item:hover {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    margin-top: -.25rem;
+    margin-bottom: .25rem;
+    -webkit-box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0.25rem 0.5rem 0 rgba(0, 0, 0, 0.2);
+  }
+}
+
+
+/*-------------------
+      Switcher
+--------------------*/
+
+.switcher-wrapper {
+  width: 320px;
+  height: 100%;
+  position: fixed;
+  right: -320px;
+  top: 0;
+  bottom: 0;
+  z-index: 9999;
+  background: #fff;
+  border-left: 0px solid #d2d2d2;
+  box-shadow: 0 0.3rem 0.6rem rgba(0, 0, 0, .13);
+  transition: all .2s ease-out;
+}
+
+.switcher-btn {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 24px;
+  background: #8833ff;
+  box-shadow: 0 0.3rem 0.6rem rgba(0, 0, 0, .13);
+  color: #fff;
+  text-align: center;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  position: absolute;
+  top: 40%;
+  right: 100%;
+  cursor: pointer;
+}
+
+.switcher-wrapper.switcher-toggled {
+  right: 0px;
+}
+
+.switcher-body {
+  padding: 1.25rem;
+  height: 100%;
+}
+
+.switcher-body .form-check .form-check-input,
+.switcher-body .form-check .form-check-label {
+  cursor: pointer;
+}
+
+.header-colors-indigators .indigator {
+  width: 45px;
+  height: 45px;
+  background: #f4f2f2;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.switcher-overlay {
+  background-color: rgba(52, 58, 64, .55);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: none;
+  z-index: 9998;
+  -webkit-transition: all .2s ease-out;
+  transition: all .2s ease-out
+}
+
+.switcher-toggled .switcher-overlay {
+  display: block
+}
+
+/*-------------------
+    Notification
+--------------------*/
+
+a.notification-item.unread .media {
+  background-color: #F6F6F6!important;
+}
