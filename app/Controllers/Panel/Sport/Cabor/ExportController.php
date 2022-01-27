@@ -86,7 +86,7 @@ class ExportController extends BaseController
 			];
 
 			$subDistrict = [
-				'district'	=> $this->modDistrict->fetchData(['district_id' => $parameters['districts.district_id'],'sport_cabor_id !=' 	=> '1'],true)->get()->getRow()->district_type.' '.$this->modDistrict->fetchData(['district_id' => $parameters['districts.district_id']])->get()->getRow()->district_name,
+				'district'	=> $this->modDistrict->fetchData(['district_id' => $parameters['districts.district_id']],true)->get()->getRow()->district_type.' '.$this->modDistrict->fetchData(['district_id' => $parameters['districts.district_id']])->get()->getRow()->district_name,
 			];
 		}
 

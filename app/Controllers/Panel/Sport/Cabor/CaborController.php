@@ -1,4 +1,6 @@
-<?php namespace App\Controllers\Panel\Sport\Cabor;
+<?php
+
+namespace App\Controllers\Panel\Sport\Cabor;
 
 use App\Controllers\BaseController;
 
@@ -32,7 +34,7 @@ class CaborController extends BaseController
 	public function __construct()
 	{
 		$this->modCabor 			= new CaborModel();
-		$this->modFile 							= New FileModel();
+		$this->modFile 							= new FileModel();
 		$this->modProvince 					= new ProvinceModel();
 		$this->modUser 						  = new UserModel();
 	}
@@ -115,11 +117,11 @@ class CaborController extends BaseController
 
 			if ($row->sport_cabor_created_by) {
 				$userData = '<h6 class="text-truncate mb-0">
-												<a href="'.panel_url('u/'.$this->libIonix->getUserData(['users.user_id' => $row->sport_cabor_created_by], 'object')->username).'" target="_blank" style="color: #'.$this->libIonix->getUserData(['users.user_id' => $row->sport_cabor_created_by], 'object')->role_color.';">
-														<strong>'.$this->libIonix->getUserData(['users.user_id' => $row->sport_cabor_created_by], 'object')->name.'</strong>
+												<a href="' . panel_url('u/' . $this->libIonix->getUserData(['users.user_id' => $row->sport_cabor_created_by], 'object')->username) . '" target="_blank" style="color: #' . $this->libIonix->getUserData(['users.user_id' => $row->sport_cabor_created_by], 'object')->role_color . ';">
+														<strong>' . $this->libIonix->getUserData(['users.user_id' => $row->sport_cabor_created_by], 'object')->name . '</strong>
 												</a>
 										 </h6>
-										 <p class="text-muted mb-0">'.$this->libIonix->getUserData(['users.user_id' => $row->sport_cabor_created_by], 'object')->role_name.'</p>';
+										 <p class="text-muted mb-0">' . $this->libIonix->getUserData(['users.user_id' => $row->sport_cabor_created_by], 'object')->role_name . '</p>';
 			} else {
 				$userData = '<i>NULL</i>';
 			}
@@ -152,7 +154,7 @@ class CaborController extends BaseController
 
 			if ($row->sport_cabor_created_by == $this->libIonix->getUserData(NULL, 'object')->user_id || $this->libIonix->getUserData(NULL, 'object')->role_access >= $this->configIonix->roleController) {
 				if ($row->sport_cabor_file_id) {
-					$caborAttachment = '<a href="'.$this->libIonix->generateFileLink($row->sport_cabor_file_id).'" target="_blank" class="btn btn-sm btn-primary"><i class="mdi mdi-download align-middle me-1"></i> Unduh Dokumen</a>';
+					$caborAttachment = '<a href="' . $this->libIonix->generateFileLink($row->sport_cabor_file_id) . '" target="_blank" class="btn btn-sm btn-primary"><i class="mdi mdi-download align-middle me-1"></i> Unduh Dokumen</a>';
 				} else {
 					$caborAttachment = '<i class="mdi mdi-alert-circle-outline align-middle text-warning font-size-18"></i>';
 				}
@@ -161,7 +163,7 @@ class CaborController extends BaseController
 			}
 
 			$subArray[] = '<p class="text-muted text-center mb-0"><strong>' . $i++ . '.</strong></p>';
-			$subArray[] = '<h6 class="text-truncate mb-0">' . $row->sport_cabor_name . ' ('.$row->sport_cabor_year_start.'-'.$row->sport_cabor_year_end.')</h6>
+			$subArray[] = '<h6 class="text-truncate mb-0">' . $row->sport_cabor_name . ' (' . $row->sport_cabor_year_start . '-' . $row->sport_cabor_year_end . ')</h6>
 										<p class="text-muted mb-0">' . $caborCode . '</p>';
 			$subArray[] = '<p class="text-muted text-center mb-0">' . $row->sport_cabor_leader . '</p>';
 			$subArray[] = '<p class="text-muted text-center mb-0">' . $row->district_type . ' ' . $row->district_name . ', ' . $row->province_name . '</p>';
@@ -174,9 +176,9 @@ class CaborController extends BaseController
 																<i class="mdi mdi-dots-horizontal font-size-18"></i>
 														</a>
 														<div class="dropdown-menu">
-																'.$btnAction.'
-																'.$btnUpdate.'
-																'.$btnDelete.'
+																' . $btnAction . '
+																' . $btnUpdate . '
+																' . $btnDelete . '
 														</div>
 												</div>
 										</div>';
@@ -230,7 +232,7 @@ class CaborController extends BaseController
 			'sport_cabor_approve_by'			=> isStakeholder() == true && $this->configIonix->allowVerifycation == true ? NULL : $this->libIonix->getUserData(NULL, 'object')->user_id,
 			'year' 								=> $this->session->year,
 			'sport_cabor_created_by'			=> $this->libIonix->getUserData(NULL, 'object')->user_id,
-			
+
 		];
 
 		if (!empty($this->request->getPost('code'))) {
@@ -253,7 +255,7 @@ class CaborController extends BaseController
 				'notification_type'			=> 'cabor',
 				'notification_title'		=> 'Pengajuan Penambahan Data Cabang Olahraga',
 				'notification_slug'			=> 'sport_cabors',
-				'notification_content'	=> 'Anda mendapatkan pengajuan persetujuan penambahan Data '.$requestCabor['sport_cabor_name'].' dari '.$this->libIonix->getUserData(NULL, 'object')->name.' untuk dipublikasikan',
+				'notification_content'	=> 'Anda mendapatkan pengajuan persetujuan penambahan Data ' . $requestCabor['sport_cabor_name'] . ' dari ' . $this->libIonix->getUserData(NULL, 'object')->name . ' untuk dipublikasikan',
 			];
 
 			if (isStakeholder() == true) {
@@ -276,10 +278,10 @@ class CaborController extends BaseController
 		}
 
 		$output = [
-			'update'								=> $this->libIonix->updateQuery('sport_cabors', ['sport_cabor_id' => $caborData->sport_cabor_id], ['sport_cabor_approve' => $caborData->sport_cabor_approve+1]),
+			'update'								=> $this->libIonix->updateQuery('sport_cabors', ['sport_cabor_id' => $caborData->sport_cabor_id], ['sport_cabor_approve' => $caborData->sport_cabor_approve + 1]),
 		];
 
-		return requestOutput(202, 'Berhasil <strong>mendaftarkan ulang</strong> <strong>'.$caborData->sport_cabor_name.'</strong> untuk diperbaiki dan diajukan kembali', $output);
+		return requestOutput(202, 'Berhasil <strong>mendaftarkan ulang</strong> <strong>' . $caborData->sport_cabor_name . '</strong> untuk diperbaiki dan diajukan kembali', $output);
 	}
 
 	private function addVerify(object $caborData)
@@ -289,14 +291,14 @@ class CaborController extends BaseController
 				'title'					=> 'diterima',
 				'message'				=> 'menerima',
 				'requirement'		=> 'Sekarang Data tersebut sudah tayang pada Halaman Utama',
-				'update'				=> $this->libIonix->updateQuery('sport_cabors', ['sport_cabor_id' => $caborData->sport_cabor_id], ['sport_cabor_approve' => $caborData->sport_cabor_approve+1, 'sport_cabor_approve_by' => $this->libIonix->getUserData(NULL, 'object')->user_id]),
+				'update'				=> $this->libIonix->updateQuery('sport_cabors', ['sport_cabor_id' => $caborData->sport_cabor_id], ['sport_cabor_approve' => $caborData->sport_cabor_approve + 1, 'sport_cabor_approve_by' => $this->libIonix->getUserData(NULL, 'object')->user_id]),
 			];
 		} elseif (filter_var($this->request->getPost('action'), FILTER_VALIDATE_BOOLEAN) == false) {
 			$action = (object) [
 				'title'					=> 'ditolak',
 				'message'				=> 'menolak',
 				'requirement'		=> 'Silahkan untuk perbaiki data dan mengajukan ulang.',
-				'update'				=> $this->libIonix->updateQuery('sport_cabors', ['sport_cabor_id' => $caborData->sport_cabor_id], ['sport_cabor_approve' => $caborData->sport_cabor_approve-2, 'sport_cabor_approve_by' => NULL]),
+				'update'				=> $this->libIonix->updateQuery('sport_cabors', ['sport_cabor_id' => $caborData->sport_cabor_id], ['sport_cabor_approve' => $caborData->sport_cabor_approve - 2, 'sport_cabor_approve_by' => NULL]),
 			];
 		}
 
@@ -305,7 +307,7 @@ class CaborController extends BaseController
 			'notification_type'			=> 'cabor',
 			'notification_title'		=> 'Verifikasi Data Cabang Olahraga',
 			'notification_slug'			=> 'sport_cabors',
-			'notification_content'	=> 'Data Cabang Olahraga dengan nama <strong>'.$caborData->sport_cabor_name.'</strong> yang Anda ajukan telah '.$action->title.'. '.$action->requirement,
+			'notification_content'	=> 'Data Cabang Olahraga dengan nama <strong>' . $caborData->sport_cabor_name . '</strong> yang Anda ajukan telah ' . $action->title . '. ' . $action->requirement,
 		];
 
 		$output = [
@@ -313,7 +315,7 @@ class CaborController extends BaseController
 			'pushNotification'			=> $this->libIonix->pushNotification(),
 		];
 
-		return requestOutput(202, 'Berhasil <strong>'.$action->message.'</strong> <strong>Data Cabang Olahraga</strong> yang diajukan', $output);
+		return requestOutput(202, 'Berhasil <strong>' . $action->message . '</strong> <strong>Data Cabang Olahraga</strong> yang diajukan', $output);
 	}
 
 	private function updateCabor(object $caborData)
@@ -347,7 +349,7 @@ class CaborController extends BaseController
 				'notification_type'			=> 'asset',
 				'notification_title'		=> 'Pengajuan Perubahan Data Cabang Olahraga',
 				'notification_slug'			=> 'sport_cabors',
-				'notification_content'	=> 'Anda mendapatkan pengajuan persetujuan perubahan Data Cabang Olahraga dengan nama '.$request['sport_cabor_name'].' dari '.$this->libIonix->getUserData(NULL, 'object')->name.' untuk ditinjau dan dipublikasikan ulang',
+				'notification_content'	=> 'Anda mendapatkan pengajuan persetujuan perubahan Data Cabang Olahraga dengan nama ' . $request['sport_cabor_name'] . ' dari ' . $this->libIonix->getUserData(NULL, 'object')->name . ' untuk ditinjau dan dipublikasikan ulang',
 			];
 
 			if (isStakeholder() == true) {
@@ -375,7 +377,7 @@ class CaborController extends BaseController
 		$request = [
 			'user_id'							=> $this->libIonix->getUserData(NULL, 'object')->user_id,
 			'file_type'						=> 'attachment',
-			'file_name' 					=> 'Dokumen Pendukung Cabang Olahraga '.$caborData->sport_cabor_name.' Periode '.$caborData->sport_cabor_year_start.'-'.$caborData->sport_cabor_year_end,
+			'file_name' 					=> 'Dokumen Pendukung Cabang Olahraga ' . $caborData->sport_cabor_name . ' Periode ' . $caborData->sport_cabor_year_start . '-' . $caborData->sport_cabor_year_end,
 			'file_source'					=> $this->request->getFile('file')->isValid() ? $this->request->getFile('file')->getRandomName() : NULL,
 			'file_size'						=> $this->request->getFile('file')->isValid() ? $this->request->getFile('file')->getSize('b') : NULL,
 			'file_extension' 			=> $this->request->getFile('file')->isValid() ? $this->request->getFile('file')->getClientExtension() : NULL,
@@ -404,70 +406,70 @@ class CaborController extends BaseController
 	 * --------------------------------------------------------------------
 	 */
 
-	 public function delete()
-	 {
-		 if ($this->libIonix->Decode($this->request->getGet('scope')) == 'cabor') {
- 	 		return $this->deleteCabor($this->modCabor->fetchData(['sport_cabor_id' => $this->libIonix->Decode($this->request->getGet('id'))])->get()->getRow());
- 	 	 }
-	 }
+	public function delete()
+	{
+		if ($this->libIonix->Decode($this->request->getGet('scope')) == 'cabor') {
+			return $this->deleteCabor($this->modCabor->fetchData(['sport_cabor_id' => $this->libIonix->Decode($this->request->getGet('id'))])->get()->getRow());
+		}
+	}
 
-	 private function deleteCabor(object $caborData)
-	 {
-		 if (isStakeholder() == true) {
- 	 		foreach ($this->modUser->fetchData(['role_access >=' => $this->configIonix->roleController, 'active' => true], false, 'DESC', false)->get()->getResult() as $row) {
- 	 			$request	= [
- 	 				'user_id'								=> $row->user_id,
- 	 				'notification_type'			=> 'cabor',
- 	 				'notification_title'		=> 'Pengajuan Penghapusan Data Cabang Olahraga',
- 	 				'notification_slug'			=> 'sport_cabors',
- 	 				'notification_content'	=> 'Anda mendapatkan pengajuan penghapusan Data '.$caborData->sport_cabor_name.' dari Cabang Olahraga yang diajukan '.$this->libIonix->getUserData(NULL, 'object')->name.' untuk dihapus sepenuhnya',
- 	 			];
+	private function deleteCabor(object $caborData)
+	{
+		if (isStakeholder() == true) {
+			foreach ($this->modUser->fetchData(['role_access >=' => $this->configIonix->roleController, 'active' => true], false, 'DESC', false)->get()->getResult() as $row) {
+				$request	= [
+					'user_id'								=> $row->user_id,
+					'notification_type'			=> 'cabor',
+					'notification_title'		=> 'Pengajuan Penghapusan Data Cabang Olahraga',
+					'notification_slug'			=> 'sport_cabors',
+					'notification_content'	=> 'Anda mendapatkan pengajuan penghapusan Data ' . $caborData->sport_cabor_name . ' dari Cabang Olahraga yang diajukan ' . $this->libIonix->getUserData(NULL, 'object')->name . ' untuk dihapus sepenuhnya',
+				];
 
- 	 			$this->libIonix->insertQuery('notifications', $request);
- 	 		}
+				$this->libIonix->insertQuery('notifications', $request);
+			}
 
- 	 		$output = [
- 	 			'delete' 						=> $this->libIonix->updateQuery('sport_cabors', ['sport_cabor_id' => $caborData->sport_cabor_id], ['sport_cabor_approve' => -1, 'sport_cabor_deleted_at' => date('Y-m-d h:m:s')]),
- 	 			'pushNotification'	=> $this->libIonix->pushNotification(),
- 	 		];
+			$output = [
+				'delete' 						=> $this->libIonix->updateQuery('sport_cabors', ['sport_cabor_id' => $caborData->sport_cabor_id], ['sport_cabor_approve' => -1, 'sport_cabor_deleted_at' => date('Y-m-d h:m:s')]),
+				'pushNotification'	=> $this->libIonix->pushNotification(),
+			];
 
- 	 		return requestOutput(202, 'Berhasil menghapus <strong>Cabang Olahraga</strong> yang dipilih, Anda harus menunggu Data ini dihapus sepenuhnya', $output);
- 	 	} else {
- 	 		$output = [
+			return requestOutput(202, 'Berhasil menghapus <strong>Cabang Olahraga</strong> yang dipilih, Anda harus menunggu Data ini dihapus sepenuhnya', $output);
+		} else {
+			$output = [
 				'remove'	=> $this->removeAttachment($caborData),
- 	 			'delete' 	=> $this->libIonix->deleteQuery('sport_cabors', ['sport_cabor_id' => $caborData->sport_cabor_id]),
- 	 			'url'			=> !empty($this->request->getGet('params')) && $this->request->getGet('params') == 'purge' ? panel_url('sport_cabors') : NULL,
- 	 			'flash'   => !empty($this->request->getGet('params')) && $this->request->getGet('params') == 'purge' ? $this->session->setFlashdata('alertSwal', [
- 	 											'type'		=> 'success',
- 	 											'header'	=> '202 Accepted',
- 	 											'message'	=> 'Berhasil menghapus <strong>Data</strong> dari sistem',
- 	 									 ]) : NULL,
- 	 		];
+				'delete' 	=> $this->libIonix->deleteQuery('sport_cabors', ['sport_cabor_id' => $caborData->sport_cabor_id]),
+				'url'			=> !empty($this->request->getGet('params')) && $this->request->getGet('params') == 'purge' ? panel_url('sport_cabors') : NULL,
+				'flash'   => !empty($this->request->getGet('params')) && $this->request->getGet('params') == 'purge' ? $this->session->setFlashdata('alertSwal', [
+					'type'		=> 'success',
+					'header'	=> '202 Accepted',
+					'message'	=> 'Berhasil menghapus <strong>Data</strong> dari sistem',
+				]) : NULL,
+			];
 
- 	 		return requestOutput(202, 'Berhasil menghapus <strong>Cabang Olahraga</strong> yang dipilih', $output);
- 	 	}
-	 }
+			return requestOutput(202, 'Berhasil menghapus <strong>Cabang Olahraga</strong> yang dipilih', $output);
+		}
+	}
 
-	 private function removeAttachment(object $caborData)
-	 {
-		 if ($caborData->sport_cabor_file_id) {
-			 if ($this->modFile->fetchData(['file_id' => $caborData->sport_cabor_file_id])->countAllResults() == true) {
-				 $data = (object) [
-					 'file' 	=> $this->modFile->fetchData(['file_id' => $caborData->sport_cabor_file_id])->get()->getRow(),
-				 ];
+	private function removeAttachment(object $caborData)
+	{
+		if ($caborData->sport_cabor_file_id) {
+			if ($this->modFile->fetchData(['file_id' => $caborData->sport_cabor_file_id])->countAllResults() == true) {
+				$data = (object) [
+					'file' 	=> $this->modFile->fetchData(['file_id' => $caborData->sport_cabor_file_id])->get()->getRow(),
+				];
 
-				 if (file_exists($this->configIonix->uploadsFolder[$data->file->file_type].$data->file->file_source)) {
-					 unlink($this->configIonix->uploadsFolder[$data->file->file_type].$data->file->file_source);
-				 }
-			 }
-		 }
+				if (file_exists($this->configIonix->uploadsFolder[$data->file->file_type] . $data->file->file_source)) {
+					unlink($this->configIonix->uploadsFolder[$data->file->file_type] . $data->file->file_source);
+				}
+			}
+		}
 
-		 $output = [
-			 'remove'	=> $caborData->sport_cabor_file_id ? $this->libIonix->deleteQuery('files', ['file_id' => $data->file->file_id]) : NULL,
-		 ];
+		$output = [
+			'remove'	=> $caborData->sport_cabor_file_id ? $this->libIonix->deleteQuery('files', ['file_id' => $data->file->file_id]) : NULL,
+		];
 
-		 return $output;
-	 }
+		return $output;
+	}
 
 	// -------------------------------------------------------------------
 

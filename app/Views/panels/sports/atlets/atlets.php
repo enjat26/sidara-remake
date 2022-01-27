@@ -34,31 +34,12 @@
                 <div class="d-flex flex-wrap">
                     <div class="me-3">
                         <p class="text-muted mb-2">Cabang Olahraga</p>
-                        <h5 class="mb-0"><?= $libIonix->builderQuery('sport_cabors')->countAllResults(); ?></h5>
+                        <h5 class="mb-0"><?= $libIonix->builderQuery('cabors')->countAllResults(); ?></h5>
                     </div>
 
                     <div class="avatar-sm ms-auto">
                         <div class="avatar-title bg-light rounded-circle text-primary font-size-20">
                             <i class="mdi mdi-bullseye-arrow"></i>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3">
-        <div class="card blog-stats-wid">
-            <div class="card-body">
-                <div class="d-flex flex-wrap">
-                    <div class="me-3">
-                        <p class="text-muted mb-2">Jenis Cabang Olahraga</p>
-                        <h5 class="mb-0"><?= $libIonix->builderQuery('sport_cabor_types')->groupBy('sport_cabor_type_name')->distinct()->get()->getNumRows(); ?></h5>
-                    </div>
-
-                    <div class="avatar-sm ms-auto">
-                        <div class="avatar-title bg-light rounded-circle text-primary font-size-20">
-                            <i class="mdi mdi-calendar-multiple"></i>
                         </div>
                     </div>
                 </div>
@@ -181,7 +162,7 @@
                                                         <select class="form-control select2" name="filter-cabor" aria-hidden="true" data-placeholder="Pilih cabang olahraga...">
                                                             <option></option>
                                                             <?php foreach ($data['modCabor']->fetchData()->get()->getResult() as $row) : ?>
-                                                                <option value="<?= $row->sport_cabor_id; ?>"><?= $row->sport_cabor_name; ?></option>
+                                                                <option value="<?= $row->cabor_id; ?>"><?= $row->cabor_name; ?></option>
                                                             <?php endforeach; ?>
                                                         </select>
                                                     </div>
@@ -232,7 +213,7 @@
                                         </div>
                                     </div>
                                     <!-- end row -->
-                                <?= customFormClose(); ?>
+                                    <?= customFormClose(); ?>
                             </div>
                             <!-- end card-body -->
                         </div>
@@ -318,8 +299,7 @@
                     <input id="image" type="file" name="image" accept="image/*" class="form-control">
                 </div>
 
-                <h5 class="text-center my-md-3">Cabang Olahraga</h5>
-
+                <h5 class="text-center my-md-3">Informasi Dasar</h5>
                 <div class="row">
                     <div class="col-sm-6 col-lg-6">
                         <div class="form-group position-relative">
@@ -327,24 +307,17 @@
                             <select class="form-control select2" name="cabor" aria-hidden="true" data-placeholder="Pilih cabang olahraga..." data-scope="<?= $libIonix->Encode('type'); ?>" required>
                                 <option></option>
                                 <?php foreach ($data['modCabor']->fetchData()->get()->getResult() as $row) : ?>
-                                    <option value="<?= $row->sport_cabor_id; ?>"><?= $row->sport_cabor_name; ?></option>
+                                    <option value="<?= $row->cabor_id; ?>"><?= $row->cabor_name; ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
                     </div>
                     <div class="col-sm-6 col-lg-6">
                         <div class="form-group position-relative">
-                            <label for="type">Jenis<code>*</code></label>
-                            <select class="form-control select2" name="type" aria-hidden="true" data-placeholder="Pilih jenis cabor..." required></select>
+                            <label for="name">Nama Atlet<code>*</code></label>
+                            <input type="text" name="name" class="form-control" placeholder="Masukan nama lengkap atlet" required>
                         </div>
                     </div>
-                </div>
-
-                <h5 class="text-center my-md-3">Informasi Dasar</h5>
-
-                <div class="form-group position-relative">
-                    <label for="name">Nama Atlet<code>*</code></label>
-                    <input type="text" name="name" class="form-control" placeholder="Masukan nama lengkap atlet" required>
                 </div>
 
                 <div class="form-group position-relative">

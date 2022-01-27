@@ -6,7 +6,7 @@
 
 <?= $this->section('stylesheet'); ?>
     <style>
-        body {
+        /* body {
           -webkit-print-color-adjust:exact;
         }
 
@@ -14,7 +14,7 @@
           size: <?= $data['paperSize'];?>;
           margin: 4mm;
           size: landscape;
-        }
+        } */
 
         .styled-table {
             border-collapse: collapse;

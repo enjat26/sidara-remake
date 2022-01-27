@@ -6,7 +6,7 @@ use App\Models\Sport\AchievementModel;
 use App\Models\Sport\AtletModel;
 use App\Models\Sport\Championship\ChampionshipModel;
 use App\Models\Sport\Championship\ParticipantModel;
-use App\Models\Sport\MedalModel;
+use App\Models\MedalModel;
 use App\Models\UserModel;
 
 /**
@@ -108,7 +108,7 @@ class AchievementController extends BaseController
 		}
 
 		foreach ($this->modParticipant->fetchData($parameters)->get()->getResult() as $row) {
-			echo '<option value="' . $row->sport_atlet_id . '">' . $row->sport_atlet_name . ' ('.$row->sport_cabor_name.')</option>';
+			echo '<option value="' . $row->sport_atlet_id . '">' . $row->sport_atlet_name . ' ('.$row->cabor_name.')</option>';
 		}
 		exit;
 	}
@@ -136,12 +136,6 @@ class AchievementController extends BaseController
 				$atletAvatar	= core_url('content/atlet/' . $this->libIonix->Encode($row->sport_atlet_id) . '/' . $this->libIonix->Encode($row->sport_atlet_avatar));
 			} else {
 				$atletAvatar = $this->configIonix->mediaFolder['image'] . 'default/avatar.jpg';
-			}
-
-			if ($row->sport_cabor_avatar) {
-				$caborAvatar	= core_url('content/cabor/' . $this->libIonix->Encode($row->sport_cabor_id) . '/' . $this->libIonix->Encode($row->sport_cabor_avatar));
-			} else {
-				$caborAvatar  = $this->configIonix->mediaFolder['image'] . 'default/logo.jpg';
 			}
 
 			if ($row->sport_championship_code) {
@@ -206,18 +200,12 @@ class AchievementController extends BaseController
 												</div>
                         <div class="media-body overflow-hidden my-auto">
                             <h5 class="text-truncate font-size-14 mb-1">' . $row->sport_atlet_name . '</h5>
-                            <p class="text-muted mb-0">' . $row->sport_atlet_code . '</p>
                         </div>
                     </div>';
-			$subArray[] = '<div class="media">
-												<div class="align-self-center me-3">
-													<img src="' . $caborAvatar . '" alt="' . $row->sport_cabor_name . '" class="rounded avatar-sm" style="height: 4rem!important">
-												</div>
-                        <div class="media-body overflow-hidden my-auto">
-                            <h5 class="text-truncate font-size-14 mb-1">' . $row->sport_cabor_name . '</h5>
-                            <p class="text-muted mb-0">Jenis: ' . $row->sport_cabor_type_name . '</p>
-                        </div>
-                    </div>';
+			$subArray[] = '<div class="media-body overflow-hidden my-auto">
+			<h5 class="text-truncate font-size-14 mb-1">' . $row->cabor_name . '</h5>
+			<p class="text-muted mb-0">Kode: ' . $row->cabor_code . '</p>
+		</div>';
 			$subArray[] = '<h6 class="text-truncate mb-0">' . $row->sport_championship_name . ' ('.$championshipCode.')</h6>
 										<p class="text-muted mb-0">' . $achievementNumber . '</p>';
 			$subArray[] = '<p class="text-muted text-center mb-0">' . $achievementResult . '</p>';
@@ -281,9 +269,9 @@ class AchievementController extends BaseController
 			'sport_medal_id'									=> $this->request->getPost('medal'),
 			'sport_achievement_number'				=> !empty($this->request->getPost('number')) ? ucwords($this->request->getPost('number')) : NULL,
 			'sport_achievement_result'				=> !empty($this->request->getPost('result')) ? ucwords($this->request->getPost('result')) : NULL,
-			'sport_achievement_approve'				=> isStakeholder() == false ? 3 : 2,
-			'sport_achievement_approve_by'		=> isStakeholder() == false ? $this->libIonix->getUserData(NULL, 'object')->user_id : NULL,
-			'sport_achievement_created_by'		=> $this->libIonix->getUserData(NULL, 'object')->user_id,
+			'sport_achievement_approve'				=> isStakeholder() == true && $this->configIonix->allowVerifycation == true ? 2 : 3,
+			'sport_achievement_approve_by'			=> isStakeholder() == true && $this->configIonix->allowVerifycation == true ? NULL : $this->libIonix->getUserData(NULL, 'object')->user_id,
+			'sport_achievement_created_by'			=> $this->libIonix->getUserData(NULL, 'object')->user_id,
 		];
 
 		foreach ($this->modUser->fetchData(['role_access >=' => $this->configIonix->roleController, 'active' => true], false, 'DESC', false)->get()->getResult() as $row) {
@@ -363,8 +351,7 @@ class AchievementController extends BaseController
 			'sport_medal_id'									=> $this->request->getPost('medal'),
 			'sport_achievement_number'				=> !empty($this->request->getPost('number')) ? ucwords($this->request->getPost('number')) : NULL,
 			'sport_achievement_result'				=> !empty($this->request->getPost('result')) ? ucwords($this->request->getPost('result')) : NULL,
-			'sport_achievement_approve'				=> isStakeholder() == false ? 3 : 2,
-			'sport_achievement_approve_by'		=> isStakeholder() == false ? $this->libIonix->getUserData(NULL, 'object')->user_id : NULL,
+			'sport_achievement_approve'				=> isStakeholder() == true && $this->configIonix->allowVerifycation == true ? 2 : 3,
 		];
 
 		foreach ($this->modUser->fetchData(['role_access >=' => $this->configIonix->roleController, 'active' => true], false, 'DESC', false)->get()->getResult() as $row) {

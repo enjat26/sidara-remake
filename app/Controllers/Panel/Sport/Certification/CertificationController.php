@@ -2,7 +2,7 @@
 
 use App\Controllers\BaseController;
 
-use App\Models\Sport\CaborModel;
+use App\Models\CaborModel;
 use App\Models\Sport\CertificationModel;
 
 /**
@@ -98,8 +98,7 @@ class CertificationController extends BaseController
 			$subArray[] = '<p class="text-muted text-center mb-0"><strong>'.$i++.'.</strong></p>';
 			$subArray[] = '<h5 class="text-truncate font-size-14 mb-0">'.$row->sport_certification_name.'</h5>';
 			$subArray[] = '<p class="text-muted text-center mb-0">'.parseGender($row->sport_certification_gender).'</p>';
-			$subArray[] = '<h5 class="text-truncate font-size-14 mb-0">'.$row->sport_cabor_name.'</h5>
-							<p class="text-muted mb-0">'.$row->sport_cabor_code.'</p>';
+			$subArray[] = '<h5 class="text-truncate font-size-14 mb-0">'.$row->cabor_name.'</h5>';
 			$subArray[] = '<p class="text-muted text-center mb-0">'.$certificationNumber.'</p>';
 			$subArray[] = '<p class="text-muted text-center mb-0">'.$row->sport_certification_category.'</p>';
 			$subArray[] = '<p class="text-muted text-center mb-0">'.$row->sport_certification_level.'</p>';
@@ -150,7 +149,7 @@ class CertificationController extends BaseController
 		$request = [
 			'sport_certification_name'					=> ucwords($this->request->getPost('name')),
 			'sport_certification_gender'				=> strtoupper($this->request->getPost('gender')),
-			'sport_cabor_code'									=> $this->request->getPost('cabor'),
+			'cabor_id'									=> $this->request->getPost('cabor'),
 			'sport_certification_category'			=> $this->request->getPost('category'),
 			'sport_certification_level'					=> ucwords($this->request->getPost('level')),
 			'sport_certification_year'					=> $this->request->getPost('year'),
@@ -170,7 +169,7 @@ class CertificationController extends BaseController
 		$request = [
 			'sport_certification_name'					=> ucwords($this->request->getPost('name')),
 			'sport_certification_gender'				=> strtoupper($this->request->getPost('gender')),
-			'sport_cabor_code'									=> $this->request->getPost('cabor'),
+			'cabor_id'									=> $this->request->getPost('cabor'),
 			'sport_certification_category'			=> $this->request->getPost('category'),
 			'sport_certification_level'					=> ucwords($this->request->getPost('level')),
 			'sport_certification_year'					=> $this->request->getPost('year'),

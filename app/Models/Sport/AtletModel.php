@@ -23,24 +23,22 @@ class AtletModel extends Model
 
   protected $allowedSearch      = [
                                     'sport_atlet_name',
-                                    'sport_atlet_code',
                                     'sport_atlet_gender',
-                                    'sport_cabor_name',
-                                    'sport_cabor_code',
+                                    'cabor_name',
                                     'sport_atlet_level',
                                   ];
 
   protected $columnSearch        = [
                                       'gender'     => ['sport_atlet_gender'],
                                       'district'   => ['districts.district_id'],
-                                      'cabor'      => ['sport_cabors.sport_cabor_id'],
+                                      'cabor'      => ['cabors.cabor_id'],
                                     ];
 
   protected $allowedOrder        = [
                                       NULL,
                                       'sport_atlet_name',
                                       'sport_atlet_gender',
-                                      'sport_cabor_name',
+                                      'cabor_name',
                                       'sport_atlet_level',
                                     ];
 
@@ -75,8 +73,7 @@ class AtletModel extends Model
     $query = $this->table($this->table)
       ->select($this->allowedFields)
       ->join('sport_atlet_info', 'sport_atlet_info.' . $this->primaryKey . ' = ' . $this->table . '.' . $this->primaryKey)
-      ->join('sport_cabor_types', 'sport_cabor_types.sport_cabor_type_id = ' . $this->table . '.sport_cabor_type_id')
-      ->join('sport_cabors', 'sport_cabors.sport_cabor_id = sport_cabor_types.sport_cabor_id')
+      ->join('cabors', 'cabors.cabor_id = '.$this->table.'.cabor_id')
       ->join('districts', 'districts.district_id = sport_atlet_info.sport_atlet_district_id')
       ->join('provinces', 'provinces.province_id = districts.province_id');
 
@@ -110,8 +107,7 @@ class AtletModel extends Model
     $query = $this->table($this->table)
       ->select($this->allowedFields)
       ->join('sport_atlet_info', 'sport_atlet_info.' . $this->primaryKey . ' = ' . $this->table . '.' . $this->primaryKey)
-      ->join('sport_cabor_types', 'sport_cabor_types.sport_cabor_type_id = ' . $this->table . '.sport_cabor_type_id')
-      ->join('sport_cabors', 'sport_cabors.sport_cabor_id = sport_cabor_types.sport_cabor_id')
+      ->join('cabors', 'cabors.cabor_id = '.$this->table.'.cabor_id')
       ->join('districts', 'districts.district_id = sport_atlet_info.sport_atlet_district_id')
       ->join('provinces', 'provinces.province_id = districts.province_id')
       ->join('sport_tournaments_participants', "sport_atlets.sport_atlet_id = sport_tournaments_participants.sport_atlet_id")

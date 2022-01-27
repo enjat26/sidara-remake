@@ -67,6 +67,7 @@ class Ionix extends BaseConfig
 		'gallery'				=> WRITEPATH . 'uploads/content/gallerys/',
 		'format' 				=> WRITEPATH . 'uploads/drive/formats/',
 		'attachment' 		=> WRITEPATH . 'uploads/drive/attachments/',
+		'atlet'					=> WRITEPATH . 'uploads/content/atlets/',
 	];
 
 	/**
@@ -110,6 +111,7 @@ class Ionix extends BaseConfig
 			'auth'		=> 'layouts/auth',
 			'panel'		=> 'layouts/panel',
 			'print'		=> 'layouts/print',
+			'pdf'		=> 'layouts/pdf',
 	];
 
 	public $viewHeader			= 'layouts/header';

@@ -182,7 +182,7 @@ function putCertification(method, id) {
     type: "GET",
     success: function(response) {
       $('[name="category"]').val(response.data.sport_certification_category).trigger('change'),
-      $('[name="cabor"]').val(response.data.sport_cabor_code).trigger('change'),
+      $('[name="cabor"]').val(response.data.cabor_id).trigger('change'),
       $('[name="level"]').val(response.data.sport_certification_level).trigger('change'),
       $('[name="year"]').val(response.data.sport_certification_year).datepicker('update'),
 

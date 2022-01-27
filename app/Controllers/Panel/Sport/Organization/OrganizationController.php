@@ -4,7 +4,7 @@ use App\Controllers\BaseController;
 
 use App\Models\Area\ProvinceModel;
 use App\Models\FileModel;
-use App\Models\Sport\CaborModel;
+use App\Models\CaborModel;
 use App\Models\Sport\OrganizationModel;
 use App\Models\UserModel;
 
@@ -97,9 +97,12 @@ class OrganizationController extends BaseController
 		if (isStakeholder() == true) {
 			$parameters = [
 				'sport_organization_created_by' 	=> $this->libIonix->getUserData(NULL, 'object')->user_id,
+				'year' 													=> $this->session->year,
 			];
 		} else {
-			$parameters = NULL;
+			$parameters = [
+				'year' 													=> $this->session->year,
+			];
 		}
 
 		foreach ($this->modOrganization->fetchData($parameters, true)->getResult() as $row) {
@@ -158,7 +161,7 @@ class OrganizationController extends BaseController
 				$organizationAttachment = '<i>NULL</i>';
 			}
 			$subArray[] = '<p class="text-muted text-center mb-0"><strong>' . $i++ . '.</strong></p>';
-			$subArray[] = '<p class="text-muted mb-0">' . $row->sport_cabor_name . '</p>';
+			$subArray[] = '<p class="text-muted mb-0">' . $row->cabor_name . '</p>';
 			$subArray[] = '<h6 class="text-truncate mb-0">' . $row->sport_organization_name . ' ('.$row->sport_organization_year_start.'-'.$row->sport_organization_year_end.')</h6>
 										<p class="text-muted mb-0">' . $organizationCode . '</p>';
 			$subArray[] = '<p class="text-muted text-center mb-0">' . $row->sport_organization_leader . '</p>';
@@ -218,7 +221,7 @@ class OrganizationController extends BaseController
 	private function addOrganization()
 	{
 		$requestOrganization = [
-			'sport_cabor_id'		=> $this->request->getPost('sport_cabor_id'),
+			'cabor_id'		=> $this->request->getPost('cabor_id'),
 			'sport_organization_district_id'		=> $this->request->getPost('district'),
 			'sport_organization_code'						=> !empty($this->request->getPost('code')) ? strtolower($this->request->getPost('code')) : NULL,
 			'sport_organization_year_start'						=> strtolower($this->request->getPost('year_start')),
@@ -227,8 +230,9 @@ class OrganizationController extends BaseController
 			'sport_organization_leader'					=> ucwords($this->request->getPost('leader')),
 			'sport_organization_number_of_member'					=> ucwords($this->request->getPost('number_of_member')),
 			'sport_organization_address'				=> !empty($this->request->getPost('address')) ? $this->request->getPost('address') : NULL,
-			'sport_organization_approve'				=> isStakeholder() == false ? 3 : 2,
-			'sport_organization_approve_by'			=> isStakeholder() == false ? $this->libIonix->getUserData(NULL, 'object')->user_id : NULL,
+			'sport_organization_approve'				=> isStakeholder() == true && $this->configIonix->allowVerifycation == true ? 2 : 3,
+			'sport_organization_approve_by'			=> isStakeholder() == true && $this->configIonix->allowVerifycation == true ? NULL : $this->libIonix->getUserData(NULL, 'object')->user_id,
+			'year' 								=> $this->session->year,
 			'sport_organization_created_by'			=> $this->libIonix->getUserData(NULL, 'object')->user_id,
 		];
 
@@ -318,7 +322,7 @@ class OrganizationController extends BaseController
 	private function updateOrganization(object $organizationData)
 	{
 		$request = [
-			'sport_cabor_id'		=> $this->request->getPost('sport_cabor_id'),
+			'cabor_id'		=> $this->request->getPost('cabor_id'),
 			'sport_organization_district_id'		=> $this->request->getPost('district'),
 			'sport_organization_code'						=> !empty($this->request->getPost('code')) ? strtolower($this->request->getPost('code')) : $organizationData->sport_organization_code,
 			'sport_organization_year_start'						=> strtolower($this->request->getPost('year_start')),

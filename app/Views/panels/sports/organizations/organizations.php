@@ -184,18 +184,12 @@
                 <div class="row">
                     <div class="col-sm-12 col-lg-12">
                         <div class="form-group position-relative">
-                            <label for="sport_cabor_id">Cabang Olahraga<code>*</code></label>
-                            <select class="form-control select2" name="sport_cabor_id" aria-hidden="true" data-placeholder="Pilih cabor..." data-scope="<?= $libIonix->Encode('cabor'); ?>" required>
+                            <label for="cabor_id">Cabang Olahraga<code>*</code></label>
+                            <select class="form-control select2" name="cabor_id" aria-hidden="true" data-placeholder="Pilih cabor..." data-scope="<?= $libIonix->Encode('cabor'); ?>" required>
                                 <option></option>
                                 <option value="1">Tanpa Cabang Olahraga</option>
-                                <?php
-                                    $parameters = [
-                                        'sport_cabor_created_by' 	=> $userData->user_id,
-                                        'sport_cabor_id !=' 	=> '1',
-                                    ];
-                                ?>
-                                <?php foreach ($data['modCabor']->fetchData($parameters,true)->get()->getResult() as $row) : ?>
-                                    <option value="<?= $row->sport_cabor_id; ?>"><?= ucwords($row->sport_cabor_name); ?></option>
+                                <?php foreach ($data['modCabor']->fetchData(NULL,true)->get()->getResult() as $row) : ?>
+                                    <option value="<?= $row->cabor_id; ?>"><?= ucwords($row->cabor_name); ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>

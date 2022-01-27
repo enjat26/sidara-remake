@@ -71,7 +71,7 @@ class OrganizationModel extends Model
                   ->select($this->allowedFields)
                   ->join('districts', 'districts.district_id = ' . $this->table . '.sport_organization_district_id')
                   ->join('provinces', 'provinces.province_id = districts.province_id')
-                  ->join('sport_cabors', 'sport_cabors.sport_cabor_id = ' . $this->table . '.sport_cabor_id', 'left');
+                  ->join('cabors', 'cabors.cabor_id = ' . $this->table . '.cabor_id', 'left');
 
 
     if (isset($where)) {

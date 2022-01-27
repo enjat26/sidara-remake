@@ -1,4 +1,6 @@
-<?php namespace App\Controllers\Panel\Sport\Championship;
+<?php
+
+namespace App\Controllers\Panel\Sport\Championship;
 
 use App\Controllers\BaseController;
 
@@ -147,11 +149,11 @@ class ChampionshipController extends BaseController
 
 			if ($row->sport_championship_created_by) {
 				$userData = '<h6 class="text-truncate mb-0">
-												<a href="'.panel_url('u/'.$this->libIonix->getUserData(['users.user_id' => $row->sport_championship_created_by], 'object')->username).'" target="_blank" style="color: #'.$this->libIonix->getUserData(['users.user_id' => $row->sport_championship_created_by], 'object')->role_color.';">
-														<strong>'.$this->libIonix->getUserData(['users.user_id' => $row->sport_championship_created_by], 'object')->name.'</strong>
+												<a href="' . panel_url('u/' . $this->libIonix->getUserData(['users.user_id' => $row->sport_championship_created_by], 'object')->username) . '" target="_blank" style="color: #' . $this->libIonix->getUserData(['users.user_id' => $row->sport_championship_created_by], 'object')->role_color . ';">
+														<strong>' . $this->libIonix->getUserData(['users.user_id' => $row->sport_championship_created_by], 'object')->name . '</strong>
 												</a>
 										 </h6>
-										 <p class="text-muted mb-0">'.$this->libIonix->getUserData(['users.user_id' => $row->sport_championship_created_by], 'object')->role_name.'</p>';
+										 <p class="text-muted mb-0">' . $this->libIonix->getUserData(['users.user_id' => $row->sport_championship_created_by], 'object')->role_name . '</p>';
 			} else {
 				$userData = '<i>NULL</i>';
 			}
@@ -177,7 +179,7 @@ class ChampionshipController extends BaseController
 			$subArray[] = '<p class="text-muted text-center mb-0"><strong>' . $i++ . '.</strong></p>';
 			$subArray[] = '<h6 class="text-truncate mb-0">' . $row->sport_championship_name . '</h6>
 										<p class="text-muted mb-0">' . $championshipCode . '</p>';
-			$subArray[] = '<p class="text-muted text-center mb-0">' . $row->sport_championship_level . ' > '.$row->sport_championship_category.'</p>';
+			$subArray[] = '<p class="text-muted text-center mb-0">' . $row->sport_championship_level . ' > ' . $row->sport_championship_category . '</p>';
 			$subArray[] = '<p class="text-muted text-center mb-0">' . $row->sport_championship_year . '</p>';
 			$subArray[] = '<p class="text-muted text-center mb-0">' . $championshipLocation . '</p>';
 			$subArray[] = '<p class="text-muted text-center mb-0">' . parseStatusData($row->sport_championship_approve)->badge . '</p>';
@@ -188,9 +190,9 @@ class ChampionshipController extends BaseController
 																<i class="mdi mdi-dots-horizontal font-size-18"></i>
 														</a>
 														<div class="dropdown-menu">
-																<a class="dropdown-item" href="'.panel_url('sport_championships/'.$this->libIonix->Encode($row->sport_championship_id).'/manage').'"><i class="mdi mdi-vector-link font-size-16 align-middle text-primary me-1"></i> Rincian & Kelola</a>
-																'.$btnUpdate.'
-																'.$btnDelete.'
+																<a class="dropdown-item" href="' . panel_url('sport_championships/' . $this->libIonix->Encode($row->sport_championship_id) . '/manage') . '"><i class="mdi mdi-vector-link font-size-16 align-middle text-primary me-1"></i> Rincian & Kelola</a>
+																' . $btnUpdate . '
+																' . $btnDelete . '
 														</div>
 												</div>
 										</div>';
@@ -228,12 +230,6 @@ class ChampionshipController extends BaseController
 				$atletAvatar = $this->configIonix->mediaFolder['image'] . 'default/avatar.jpg';
 			}
 
-			if ($row->sport_cabor_avatar) {
-				$caborAvatar	= core_url('content/cabor/' . $this->libIonix->Encode($row->sport_cabor_id) . '/' . $this->libIonix->Encode($row->sport_cabor_avatar));
-			} else {
-				$caborAvatar  = $this->configIonix->mediaFolder['image'] . 'default/logo.jpg';
-			}
-
 			if ($row->sport_atlet_created_by) {
 				$userData = '<h6 class="text-truncate mb-0">
 												<a href="' . panel_url('u/' . $this->libIonix->getUserData(['users.user_id' => $row->sport_atlet_created_by], 'object')->username) . '" target="_blank" style="color: #' . $this->libIonix->getUserData(['users.user_id' => $row->sport_atlet_created_by], 'object')->role_color . ';">
@@ -252,24 +248,18 @@ class ChampionshipController extends BaseController
 												</div>
                         <div class="media-body overflow-hidden my-auto">
                             <h5 class="text-truncate font-size-14 mb-1">' . $row->sport_atlet_name . '</h5>
-                            <p class="text-muted mb-0">' . $row->sport_atlet_code . '</p>
                         </div>
                     </div>';
 			$subArray[] = '<p class="text-muted text-center mb-0">' . parseGender($row->sport_atlet_gender) . '</p>';
-			$subArray[] = '<div class="media">
-												<div class="align-self-center me-3">
-													<img src="' . $caborAvatar . '" alt="' . $row->sport_cabor_name . '" class="rounded-circle avatar-sm">
-												</div>
-                        <div class="media-body overflow-hidden my-auto">
-                            <h5 class="text-truncate font-size-14 mb-0">' . $row->sport_cabor_name . '</h5>
-														<p class="text-muted mb-0">Jenis: ' . $row->sport_cabor_type_name . '</p>
-                        </div>
-                    </div>';
+			$subArray[] = '<div class="media-body overflow-hidden my-auto">
+                            <h5 class="text-truncate font-size-14 mb-0">' . $row->cabor_name . '</h5>
+														<p class="text-muted mb-0">Kode: ' . $row->cabor_code . '</p>
+                        </div>';
 			$subArray[] = '<p class="text-muted text-center mb-0">' . $row->district_type . ' ' . $row->district_name . ', ' . $row->province_name . '</p>';
 			$subArray[] = $userData;
 			$subArray[] = '<div class="text-center">
 												<div class="form-check">
-														<input class="form-check-input chooseAtlet" type="checkbox" data-scope="'.$this->libIonix->Encode('participant').'" data-val="' . $this->libIonix->Encode($row->sport_atlet_id) . '" ' . $checkedStatus . '>
+														<input class="form-check-input chooseAtlet" type="checkbox" data-scope="' . $this->libIonix->Encode('participant') . '" data-val="' . $this->libIonix->Encode($row->sport_atlet_id) . '" ' . $checkedStatus . '>
 												</div>
 										</div>';
 			$data[] = $subArray;
@@ -302,12 +292,6 @@ class ChampionshipController extends BaseController
 				$atletAvatar = $this->configIonix->mediaFolder['image'] . 'default/avatar.jpg';
 			}
 
-			if ($row->sport_cabor_avatar) {
-				$caborAvatar	= core_url('content/cabor/' . $this->libIonix->Encode($row->sport_cabor_id) . '/' . $this->libIonix->Encode($row->sport_cabor_avatar));
-			} else {
-				$caborAvatar  = $this->configIonix->mediaFolder['image'] . 'default/logo.jpg';
-			}
-
 			if (isStakeholder() == false || $row->sport_championship_participant_created_by == $this->libIonix->getUserData(NULL, 'object')->user_id) {
 				$btnDelete 	= '<a class="dropdown-item" href="javascript:void(0);" onclick="deleteMethod(false ,\'' . $this->libIonix->Encode('participant') . '\', \'' . $this->libIonix->Encode($row->sport_championship_participant_id) . '\');"><i class="mdi mdi-trash-can-outline font-size-16 align-middle text-danger me-1"></i> Hapus</a>';
 			} else {
@@ -321,19 +305,13 @@ class ChampionshipController extends BaseController
 												</div>
                         <div class="media-body overflow-hidden my-auto">
                             <h5 class="text-truncate font-size-14 mb-1">' . $row->sport_atlet_name . '</h5>
-                            <p class="text-muted mb-0">' . $row->sport_atlet_code . '</p>
                         </div>
                     </div>';
 			$subArray[] = '<p class="text-muted text-center mb-0">' . parseGender($row->sport_atlet_gender) . '</p>';
-			$subArray[] = '<div class="media">
-												<div class="align-self-center me-3">
-													<img src="' . $caborAvatar . '" alt="' . $row->sport_cabor_name . '" class="rounded-circle avatar-sm">
-												</div>
-                        <div class="media-body overflow-hidden my-auto">
-                            <h5 class="text-truncate font-size-14 mb-0">' . $row->sport_cabor_name . '</h5>
-														<p class="text-muted mb-0">Jenis: ' . $row->sport_cabor_type_name . '</p>
-                        </div>
-                    </div>';
+			$subArray[] = '<div class="media-body overflow-hidden my-auto">
+							<h5 class="text-truncate font-size-14 mb-0">' . $row->cabor_name . '</h5>
+							<p class="text-muted mb-0">Kode: ' . $row->cabor_code . '</p>
+						</div>';
 			$subArray[] = '<p class="text-muted text-center mb-0">' . $row->district_type . ' ' . $row->district_name . ', ' . $row->province_name . '</p>';
 			$subArray[] = '<div class="text-center">
 												<div class="dropdown dropstart">
@@ -385,7 +363,7 @@ class ChampionshipController extends BaseController
 		}
 
 		if ($this->libIonix->Decode($this->request->getGet('scope')) == 'participant') {
-				return $this->addChampionshipParticipant($this->modChampionship->fetchData(['sport_championship_id' => $this->libIonix->Decode($this->request->getGet('params'))])->get()->getRow());
+			return $this->addChampionshipParticipant($this->modChampionship->fetchData(['sport_championship_id' => $this->libIonix->Decode($this->request->getGet('params'))])->get()->getRow());
 		}
 	}
 
@@ -399,8 +377,8 @@ class ChampionshipController extends BaseController
 			'sport_championship_category'				=> ucwords($this->request->getPost('category')),
 			'sport_championship_location'				=> !empty($this->request->getPost('location')) ? ucwords($this->request->getPost('location')) : NULL,
 			'sport_championship_explanation'		=> !empty($this->request->getPost('explanation')) ? $this->request->getPost('explanation') : NULL,
-			'sport_championship_approve'				=> isStakeholder() == false ? 3 : 2,
-			'sport_championship_approve_by'			=> isStakeholder() == false ? $this->libIonix->getUserData(NULL, 'object')->user_id : NULL,
+			'sport_championship_approve'				=> isStakeholder() == true && $this->configIonix->allowVerifycation == true ? 2 : 3,
+			'sport_championship_approve_by'			=> isStakeholder() == true && $this->configIonix->allowVerifycation == true ? NULL : $this->libIonix->getUserData(NULL, 'object')->user_id,
 			'sport_championship_created_by'			=> $this->libIonix->getUserData(NULL, 'object')->user_id,
 		];
 
@@ -419,8 +397,8 @@ class ChampionshipController extends BaseController
 				'user_id'								=> $row->user_id,
 				'notification_type'			=> 'championship',
 				'notification_title'		=> 'Pengajuan Penambahan Data Kejuaraan Olahraga',
-				'notification_slug'			=> 'sport_championships/'.$this->libIonix->Encode($query->insert).'/manage',
-				'notification_content'	=> 'Anda mendapatkan pengajuan persetujuan penambahan Data '.$requestChampionship['sport_championship_name'].' dari '.$this->libIonix->getUserData(NULL, 'object')->name.' untuk dipublikasikan',
+				'notification_slug'			=> 'sport_championships/' . $this->libIonix->Encode($query->insert) . '/manage',
+				'notification_content'	=> 'Anda mendapatkan pengajuan persetujuan penambahan Data ' . $requestChampionship['sport_championship_name'] . ' dari ' . $this->libIonix->getUserData(NULL, 'object')->name . ' untuk dipublikasikan',
 			];
 
 			if (isStakeholder() == true) {
@@ -442,12 +420,12 @@ class ChampionshipController extends BaseController
 		}
 
 		$output = [
-			'update'								=> $this->libIonix->updateQuery('sport_championships', ['sport_championship_id' => $championshipData->sport_championship_id], ['sport_championship_approve' => $championshipData->sport_championship_approve+1]),
+			'update'								=> $this->libIonix->updateQuery('sport_championships', ['sport_championship_id' => $championshipData->sport_championship_id], ['sport_championship_approve' => $championshipData->sport_championship_approve + 1]),
 			'flash'   							=> $this->session->setFlashdata('alertToastr', [
-													 					'type'			=> 'success',
-													 					'header'		=> '202 Accepted',
-													 					'message'		=> 'Berhasil <strong>mendaftarkan ulang</strong> <strong>'.$championshipData->sport_championship_name.'</strong> untuk diperbaiki dan diajukan kembali',
-										 		 				 ]),
+				'type'			=> 'success',
+				'header'		=> '202 Accepted',
+				'message'		=> 'Berhasil <strong>mendaftarkan ulang</strong> <strong>' . $championshipData->sport_championship_name . '</strong> untuk diperbaiki dan diajukan kembali',
+			]),
 		];
 
 		return requestOutput(202, NULL, $output);
@@ -460,14 +438,14 @@ class ChampionshipController extends BaseController
 				'title'					=> 'diterima',
 				'message'				=> 'menerima',
 				'requirement'		=> 'Sekarang Data tersebut sudah tayang pada Halaman Utama',
-				'update'				=> $this->libIonix->updateQuery('sport_championships', ['sport_championship_id' => $championshipData->sport_championship_id], ['sport_championship_approve' => $championshipData->sport_championship_approve+1, 'sport_championship_approve_by' => $this->libIonix->getUserData(NULL, 'object')->user_id]),
+				'update'				=> $this->libIonix->updateQuery('sport_championships', ['sport_championship_id' => $championshipData->sport_championship_id], ['sport_championship_approve' => $championshipData->sport_championship_approve + 1, 'sport_championship_approve_by' => $this->libIonix->getUserData(NULL, 'object')->user_id]),
 			];
 		} elseif (filter_var($this->request->getPost('action'), FILTER_VALIDATE_BOOLEAN) == false) {
 			$action = (object) [
 				'title'					=> 'ditolak',
 				'message'				=> 'menolak',
 				'requirement'		=> 'Silahkan untuk perbaiki data dan mengajukan ulang.',
-				'update'				=> $this->libIonix->updateQuery('sport_championships', ['sport_championship_id' => $championshipData->sport_championship_id], ['sport_championship_approve' => $championshipData->sport_championship_approve-2, 'sport_championship_approve_by' => NULL]),
+				'update'				=> $this->libIonix->updateQuery('sport_championships', ['sport_championship_id' => $championshipData->sport_championship_id], ['sport_championship_approve' => $championshipData->sport_championship_approve - 2, 'sport_championship_approve_by' => NULL]),
 			];
 		}
 
@@ -475,18 +453,18 @@ class ChampionshipController extends BaseController
 			'user_id'								=> $championshipData->sport_championship_created_by,
 			'notification_type'			=> 'championship',
 			'notification_title'		=> 'Verifikasi Data Kejuaraan Olahraga',
-			'notification_slug'			=> 'sport_championships/'.$this->libIonix->Encode($championshipData->sport_championship_id).'/manage',
-			'notification_content'	=> 'Data Kejuaraan Olahraga dengan nama <strong>'.$championshipData->sport_championship_name.'</strong> yang Anda ajukan telah '.$action->title.'. '.$action->requirement,
+			'notification_slug'			=> 'sport_championships/' . $this->libIonix->Encode($championshipData->sport_championship_id) . '/manage',
+			'notification_content'	=> 'Data Kejuaraan Olahraga dengan nama <strong>' . $championshipData->sport_championship_name . '</strong> yang Anda ajukan telah ' . $action->title . '. ' . $action->requirement,
 		];
 
 		$output = [
 			'insertNotification'		=> $this->libIonix->insertQuery('notifications', $requestNotification),
 			'pushNotification'			=> $this->libIonix->pushNotification(),
 			'flash'   							=> $this->session->setFlashdata('alertToastr', [
-													 					'type'			=> 'success',
-													 					'header'		=> '202 Accepted',
-													 					'message'		=> 'Berhasil <strong>'.$action->message.'</strong> <strong>Data Kejuaraan Olahraga</strong> yang diajukan',
-										 		 				 ]),
+				'type'			=> 'success',
+				'header'		=> '202 Accepted',
+				'message'		=> 'Berhasil <strong>' . $action->message . '</strong> <strong>Data Kejuaraan Olahraga</strong> yang diajukan',
+			]),
 		];
 
 		return requestOutput(202, NULL, $output);
@@ -521,9 +499,8 @@ class ChampionshipController extends BaseController
 			'sport_championship_level'					=> ucwords($this->request->getPost('level')),
 			'sport_championship_category'				=> ucwords($this->request->getPost('category')),
 			'sport_championship_location'				=> !empty($this->request->getPost('location')) ? ucwords($this->request->getPost('location')) : NULL,
-			'sport_championship_explanation'		=> !empty($this->request->getPost('explanation')) ? $this->request->getPost('explanation') : NULL,
-			'sport_championship_approve'				=> isStakeholder() == false ? 3 : 2,
-			'sport_championship_approve_by'			=> isStakeholder() == false ? $this->libIonix->getUserData(NULL, 'object')->user_id : NULL,
+			'sport_championship_explanation'			=> !empty($this->request->getPost('explanation')) ? $this->request->getPost('explanation') : NULL,
+			'sport_championship_approve'				=> isStakeholder() == true && $this->configIonix->allowVerifycation == true ? 2 : 3,
 		];
 
 		if (!empty($this->request->getPost('code'))) {
@@ -539,8 +516,8 @@ class ChampionshipController extends BaseController
 				'user_id'								=> $row->user_id,
 				'notification_type'			=> 'championship',
 				'notification_title'		=> 'Pengajuan Perubahan Data Kejuaraan Olahraga',
-				'notification_slug'			=> 'sport_championships/'.$this->libIonix->Encode($championshipData->sport_championship_id).'/manage',
-				'notification_content'	=> 'Anda mendapatkan pengajuan persetujuan perubahan Data Kejuaraan Olahraga dengan nama '.$request['sport_championship_name'].' dari '.$this->libIonix->getUserData(NULL, 'object')->name.' untuk ditinjau dan dipublikasikan ulang',
+				'notification_slug'			=> 'sport_championships/' . $this->libIonix->Encode($championshipData->sport_championship_id) . '/manage',
+				'notification_content'	=> 'Anda mendapatkan pengajuan persetujuan perubahan Data Kejuaraan Olahraga dengan nama ' . $request['sport_championship_name'] . ' dari ' . $this->libIonix->getUserData(NULL, 'object')->name . ' untuk ditinjau dan dipublikasikan ulang',
 			];
 
 			if (isStakeholder() == true) {
@@ -562,55 +539,55 @@ class ChampionshipController extends BaseController
 	 * --------------------------------------------------------------------
 	 */
 
-	 public function delete()
-	 {
-		 if ($this->libIonix->Decode($this->request->getGet('scope')) == 'championship') {
- 	 		return $this->deleteChampionship($this->modChampionship->fetchData(['sport_championship_id' => $this->libIonix->Decode($this->request->getGet('id'))])->get()->getRow());
- 	 	 }
+	public function delete()
+	{
+		if ($this->libIonix->Decode($this->request->getGet('scope')) == 'championship') {
+			return $this->deleteChampionship($this->modChampionship->fetchData(['sport_championship_id' => $this->libIonix->Decode($this->request->getGet('id'))])->get()->getRow());
+		}
 
-		 if ($this->libIonix->Decode($this->request->getGet('scope')) == 'participant') {
- 	 		return $this->deleteChampionshipParticipant($this->modParticipant->fetchData(['sport_championship_participant_id' => $this->libIonix->Decode($this->request->getGet('id'))])->get()->getRow());
- 	 	 }
+		if ($this->libIonix->Decode($this->request->getGet('scope')) == 'participant') {
+			return $this->deleteChampionshipParticipant($this->modParticipant->fetchData(['sport_championship_participant_id' => $this->libIonix->Decode($this->request->getGet('id'))])->get()->getRow());
+		}
 
-		 if ($this->libIonix->Decode($this->request->getGet('scope')) == 'allparticipant') {
- 	 		return $this->deleteChampionshipAllParticipant();
- 	 	 }
-	 }
+		if ($this->libIonix->Decode($this->request->getGet('scope')) == 'allparticipant') {
+			return $this->deleteChampionshipAllParticipant();
+		}
+	}
 
-	 private function deleteChampionship(object $championshipData)
-	 {
-		 if (isStakeholder() == true) {
- 	 		foreach ($this->modUser->fetchData(['role_access >=' => $this->configIonix->roleController, 'active' => true], false, 'DESC', false)->get()->getResult() as $row) {
- 	 			$request	= [
- 	 				'user_id'								=> $row->user_id,
- 	 				'notification_type'			=> 'championship',
- 	 				'notification_title'		=> 'Pengajuan Penghapusan Data Kejuaraan Olahraga',
- 	 				'notification_slug'			=> 'sport_championships/'.$this->libIonix->Encode($championshipData->sport_championship_id).'/manage',
- 	 				'notification_content'	=> 'Anda mendapatkan pengajuan penghapusan Data '.$championshipData->sport_championship_name.' dari Kejuaraan Olahraga yang diajukan '.$this->libIonix->getUserData(NULL, 'object')->name.' untuk dihapus sepenuhnya',
- 	 			];
+	private function deleteChampionship(object $championshipData)
+	{
+		if (isStakeholder() == true) {
+			foreach ($this->modUser->fetchData(['role_access >=' => $this->configIonix->roleController, 'active' => true], false, 'DESC', false)->get()->getResult() as $row) {
+				$request	= [
+					'user_id'								=> $row->user_id,
+					'notification_type'			=> 'championship',
+					'notification_title'		=> 'Pengajuan Penghapusan Data Kejuaraan Olahraga',
+					'notification_slug'			=> 'sport_championships/' . $this->libIonix->Encode($championshipData->sport_championship_id) . '/manage',
+					'notification_content'	=> 'Anda mendapatkan pengajuan penghapusan Data ' . $championshipData->sport_championship_name . ' dari Kejuaraan Olahraga yang diajukan ' . $this->libIonix->getUserData(NULL, 'object')->name . ' untuk dihapus sepenuhnya',
+				];
 
- 	 			$this->libIonix->insertQuery('notifications', $request);
- 	 		}
+				$this->libIonix->insertQuery('notifications', $request);
+			}
 
- 	 		$output = [
- 	 			'delete' 						=> $this->libIonix->updateQuery('sport_championships', ['sport_championship_id' => $championshipData->sport_championship_id], ['sport_championship_approve' => -1, 'sport_championship_deleted_at' => date('Y-m-d h:m:s')]),
- 	 			'pushNotification'	=> $this->libIonix->pushNotification(),
- 	 		];
+			$output = [
+				'delete' 						=> $this->libIonix->updateQuery('sport_championships', ['sport_championship_id' => $championshipData->sport_championship_id], ['sport_championship_approve' => -1, 'sport_championship_deleted_at' => date('Y-m-d h:m:s')]),
+				'pushNotification'	=> $this->libIonix->pushNotification(),
+			];
 
- 	 		return requestOutput(202, 'Berhasil menghapus <strong>Kejuaraan Olahraga</strong> yang dipilih, Anda harus menunggu Data ini dihapus sepenuhnya', $output);
- 	 	} else {
- 	 		$output = [
- 	 			'delete' 	=> $this->libIonix->deleteQuery('sport_championships', ['sport_championship_id' => $championshipData->sport_championship_id]),
- 	 			'url'			=> !empty($this->request->getGet('params')) && $this->request->getGet('params') == 'purge' ? panel_url('sport_championships') : NULL,
- 	 			'flash'   => !empty($this->request->getGet('params')) && $this->request->getGet('params') == 'purge' ? $this->session->setFlashdata('alertSwal', [
- 	 											'type'		=> 'success',
- 	 											'header'	=> '202 Accepted',
- 	 											'message'	=> 'Berhasil menghapus <strong>Data</strong> dari sistem',
- 	 									 ]) : NULL,
- 	 		];
+			return requestOutput(202, 'Berhasil menghapus <strong>Kejuaraan Olahraga</strong> yang dipilih, Anda harus menunggu Data ini dihapus sepenuhnya', $output);
+		} else {
+			$output = [
+				'delete' 	=> $this->libIonix->deleteQuery('sport_championships', ['sport_championship_id' => $championshipData->sport_championship_id]),
+				'url'			=> !empty($this->request->getGet('params')) && $this->request->getGet('params') == 'purge' ? panel_url('sport_championships') : NULL,
+				'flash'   => !empty($this->request->getGet('params')) && $this->request->getGet('params') == 'purge' ? $this->session->setFlashdata('alertSwal', [
+					'type'		=> 'success',
+					'header'	=> '202 Accepted',
+					'message'	=> 'Berhasil menghapus <strong>Data</strong> dari sistem',
+				]) : NULL,
+			];
 
- 	 		return requestOutput(202, 'Berhasil menghapus <strong>Kejuaraan Olahraga</strong> yang dipilih', $output);
- 	 	}
+			return requestOutput(202, 'Berhasil menghapus <strong>Kejuaraan Olahraga</strong> yang dipilih', $output);
+		}
 	}
 
 	private function deleteChampionshipParticipant(object $participantData)
@@ -631,10 +608,10 @@ class ChampionshipController extends BaseController
 		$output = [
 			'delete' 	=> $this->libIonix->deleteQuery('sport_championship_participants', ['sport_championship_id' => $this->libIonix->Decode($this->request->getGet('id'))]),
 			'flash'   => $this->session->setFlashdata('alertSwal', [
-											'type'		=> 'success',
-											'header'	=> '202 Accepted',
-											'message'	=> 'Berhasil menghapus <strong>Seluruh Atlet</strong> pada <strong>Kejuaraan</strong> ini',
-									 ]),
+				'type'		=> 'success',
+				'header'	=> '202 Accepted',
+				'message'	=> 'Berhasil menghapus <strong>Seluruh Atlet</strong> pada <strong>Kejuaraan</strong> ini',
+			]),
 		];
 
 		return requestOutput(202, NULL, $output);

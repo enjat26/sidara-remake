@@ -210,7 +210,7 @@ function putOrganization(method, id) {
       $('[name="leader"]').val(response.data.sport_organization_leader),
       $('[name="address"]').val(response.data.sport_organization_address),
       $('[name="province"]').val(response.data.province_id).trigger('change');
-      $('[name="sport_cabor_id"]').val(response.data.sport_cabor_id).trigger('change');
+      $('[name="cabor_id"]').val(response.data.cabor_id).trigger('change');
 
       if (response.data.sport_organization_file_id) {
         $('[key="file-existing"]').show();

@@ -80,25 +80,6 @@ function initButton() {
     previewImage(this);
   });
 
-  $('[name="cabor"]').on("change", function () {
-    $.ajax({
-      url:  $('meta[name=site-url]').attr("content")+'sport_atlets/list',
-      data: "format=Dropdown&scope="+$(this).data("scope")+"&id="+$(this).val(),
-      type: "GET",
-      dataType: "HTML",
-    }).done(function(response) {
-      if (!response) {
-        $('[name="type"]').html('<option></option>');
-      } else {
-        $('[name="type"]').html('<option></option>'+response);
-      }
-
-      if (type) {
-        $('[name="type"]').val(type).trigger('change');
-      }
-    });
-  });
-
   $('[name="province"]').on('change', function () {
     $.ajax({
       url:  $('meta[name=site-url]').attr("content")+'areas/list',

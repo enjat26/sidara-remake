@@ -421,6 +421,26 @@ $routes->group($routePanel.'cabors', ['filter' => 'login'], function($routes) {
 	}
 });
 
+$routes->group($routePanel . 'medals', ['filter' => 'login'], function ($routes) {
+	$routes->get('/', 'Panel\MedalController::index');
+
+	if (ENVIRONMENT !== 'development') {
+		$routes->get('count', 'Panel\MedalController::count', ['filter' => 'request']);
+		$routes->get('get', 'Panel\MedalController::get', ['filter' => 'request']);
+		$routes->add('list', 'Panel\MedalController::list', ['filter' => 'request']);
+		$routes->post('store', 'Panel\MedalController::store', ['filter' => 'request']);
+		$routes->post('update', 'Panel\MedalController::update', ['filter' => 'request']);
+		$routes->delete('delete', 'Panel\MedalController::delete', ['filter' => 'request']);
+	} else {
+		$routes->add('count', 'Panel\MedalController::count', ['filter' => 'request']);
+		$routes->add('get', 'Panel\MedalController::get', ['filter' => 'request']);
+		$routes->add('list', 'Panel\MedalController::list', ['filter' => 'request']);
+		$routes->add('store', 'Panel\MedalController::store', ['filter' => 'request']);
+		$routes->add('update', 'Panel\MedalController::update', ['filter' => 'request']);
+		$routes->add('delete', 'Panel\MedalController::delete', ['filter' => 'request']);
+	}
+});
+
 // ========================================================================================== BREAK
 
 $routes->group($routePanel.'youth_statistics', ['filter' => 'login'], function($routes) {

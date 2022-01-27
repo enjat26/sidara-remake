@@ -25,8 +25,8 @@ class ParticipantModel extends Model
                                     'sport_atlet_name',
                                     'sport_atlet_code',
                                     'sport_atlet_gender',
-                                    'sport_cabor_name',
-                                    'sport_cabor_code',
+                                    'cabor_name',
+                                    'cabor_code',
                                   ];
 
   protected $columnSearch        = NULL;
@@ -35,7 +35,7 @@ class ParticipantModel extends Model
                                       NULL,
                                       'sport_atlet_name',
                                       'sport_atlet_gender',
-                                      'sport_cabor_name',
+                                      'cabor_name',
                                     ];
 
   /**
@@ -71,8 +71,7 @@ class ParticipantModel extends Model
                   ->join('sport_championships', 'sport_championships.sport_championship_id = ' . $this->table . '.sport_championship_id')
                   ->join('sport_atlets', 'sport_atlets.sport_atlet_id = ' . $this->table . '.sport_atlet_id')
                   ->join('sport_atlet_info', 'sport_atlet_info.sport_atlet_id = sport_atlets.sport_atlet_id')
-                  ->join('sport_cabor_types', 'sport_cabor_types.sport_cabor_type_id = sport_atlets.sport_cabor_type_id')
-                  ->join('sport_cabors', 'sport_cabors.sport_cabor_id = sport_cabor_types.sport_cabor_id')
+                  ->join('cabors', 'cabors.cabor_id = sport_atlets.cabor_id')
                   ->join('districts', 'districts.district_id = sport_atlet_info.sport_atlet_district_id')
                   ->join('provinces', 'provinces.province_id = districts.province_id');
 
@@ -106,8 +105,8 @@ class ParticipantModel extends Model
     $query = $this->table($this->table)
       ->select($this->allowedFields)
       ->join('sport_atlet_info', 'sport_atlet_info.' . $this->primaryKey . ' = ' . $this->table . '.' . $this->primaryKey)
-      ->join('sport_cabor_types', 'sport_cabor_types.sport_cabor_type_id = ' . $this->table . '.sport_cabor_type_id')
-      ->join('sport_cabors', 'sport_cabors.sport_cabor_id = sport_cabor_types.sport_cabor_id')
+      ->join('cabor_types', 'cabor_types.cabor_type_id = ' . $this->table . '.cabor_type_id')
+      ->join('cabors', 'cabors.cabor_id = cabor_types.cabor_id')
       ->join('districts', 'districts.district_id = sport_atlet_info.sport_atlet_district_id')
       ->join('provinces', 'provinces.province_id = districts.province_id')
       ->join('sport_tournaments_participants', "sport_atlets.sport_atlet_id = sport_tournaments_participants.sport_atlet_id")

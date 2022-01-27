@@ -23,9 +23,7 @@ class AchievementModel extends Model
 
   protected $allowedSearch      = [
                                     'sport_atlet_name',
-                                    'sport_atlet_code',
-                                    'sport_cabors.sport_cabor_name',
-                                    'sport_cabors.sport_cabor_code',
+                                    'cabors.cabor_name',
                                     'sport_championship_name',
                                     'sport_championship_code',
                                     'sport_achievement_number',
@@ -40,7 +38,7 @@ class AchievementModel extends Model
   protected $allowedOrder      = [
                                     NULL,
                                     'sport_atlets.sport_atlet_name',
-                                    'sport_cabors.sport_cabor_name',
+                                    'cabors.cabor_name',
                                  ];
 
 
@@ -79,8 +77,7 @@ class AchievementModel extends Model
                   ->join('sport_championships', 'sport_championships.sport_championship_id = ' . $this->table . '.sport_championship_id')
                   ->join('sport_atlets', 'sport_atlets.sport_atlet_id = ' . $this->table . '.sport_atlet_id')
                   ->join('sport_atlet_info', 'sport_atlet_info.sport_atlet_id = sport_atlets.sport_atlet_id')
-                  ->join('sport_cabor_types', 'sport_cabor_types.sport_cabor_type_id = sport_atlets.sport_cabor_type_id')
-                  ->join('sport_cabors', 'sport_cabors.sport_cabor_id = sport_cabor_types.sport_cabor_id')
+                  ->join('cabors', 'cabors.cabor_id = sport_atlets.cabor_id')
                   ->join('districts', 'districts.district_id = sport_atlet_info.sport_atlet_district_id')
                   ->join('provinces', 'provinces.province_id = districts.province_id');
                   // ->join('sport_tournaments', 'sport_tournaments.tournament_id = ' . $this->table . '.tournament_id');

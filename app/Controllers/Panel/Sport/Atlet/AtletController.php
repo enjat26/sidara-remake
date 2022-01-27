@@ -6,7 +6,7 @@ use App\Controllers\BaseController;
 
 use App\Models\Area\DistrictModel;
 use App\Models\Area\ProvinceModel;
-use App\Models\Sport\CaborModel;
+use App\Models\CaborModel;
 use App\Models\Sport\AtletModel;
 use App\Models\UserModel;
 
@@ -132,10 +132,8 @@ class AtletController extends BaseController
 		$output = [
 			'avatar'		=> $atletData->sport_atlet_avatar ? core_url('content/atlet/' . $this->libIonix->Encode($atletData->sport_atlet_id) . '/' . $this->libIonix->Encode($atletData->sport_atlet_avatar)) : $this->configIonix->mediaFolder['image'] . 'default/avatar.jpg',
 			'name'			=> $atletData->sport_atlet_name,
-			'code'			=> $atletData->sport_atlet_code,
 			'bio'				=> $atletData->sport_atlet_bio ? $atletData->sport_atlet_bio : '<i>Atlet ini belum memiliki biografi</i>',
-			'cabor'			=> $atletData->sport_cabor_name,
-			'type'			=> $atletData->sport_cabor_type_name,
+			'cabor'			=> $atletData->cabor_name,
 			// 'address'		=> $atletData->sport_atlet_address ? $atletData->sport_atlet_address.', kel. '.$atletData->sport_atlet_village.', kec. '.$atletData->sport_atlet_sub_district.', '.$atletData->sport_atlet_district.', '.$atletData->sport_atlet_province.' - '.$atletData->sport_atlet_zip_code : '-',
 			'gender'		=> $atletData->sport_atlet_gender ? parseGender($atletData->sport_atlet_gender) : '-',
 			'age'				=> $atletData->sport_atlet_dob ? parseAge($atletData->sport_atlet_dob)->years . ' Tahun' : '-',
@@ -271,14 +269,6 @@ class AtletController extends BaseController
 		}
 	}
 
-	private function listTypeDropdown()
-	{
-		foreach ($this->libIonix->getQuery('sport_cabor_types', ['sport_cabors' => 'sport_cabors.sport_cabor_id = sport_cabor_types.sport_cabor_id'], ['sport_cabors.sport_cabor_id' => $this->request->getGet('id')])->getResult() as $row) {
-			echo '<option value="' . $row->sport_cabor_type_id . '">' . $row->sport_cabor_type_name . '</option>';
-		}
-		exit;
-	}
-
 	private function listAtletDT()
 	{
 		$i 						= $this->request->getVar('start') + 1;
@@ -296,13 +286,6 @@ class AtletController extends BaseController
 
 		foreach ($this->modAtlet->fetchData($parameters, true)->getResult() as $row) {
 			$subArray 		= [];
-
-			if ($row->sport_cabor_avatar) {
-				$caborAvatar	= core_url('content/cabor/' . $this->libIonix->Encode($row->sport_cabor_id) . '/' . $this->libIonix->Encode($row->sport_cabor_avatar));
-			} else {
-				$caborAvatar  = $this->configIonix->mediaFolder['image'] . 'default/logo.jpg';
-			}
-
 			if ($row->sport_atlet_created_by) {
 				$userData = '<h6 class="text-truncate mb-0">
 												<a href="' . panel_url('u/' . $this->libIonix->getUserData(['users.user_id' => $row->sport_atlet_created_by], 'object')->username) . '" target="_blank" style="color: #' . $this->libIonix->getUserData(['users.user_id' => $row->sport_atlet_created_by], 'object')->role_color . ';">
@@ -325,18 +308,9 @@ class AtletController extends BaseController
 			}
 
 			$subArray[] = '<p class="text-muted text-center mb-0"><strong>' . $i++ . '.</strong></p>';
-			$subArray[] = '<h5 class="text-truncate mb-0">' . $row->sport_atlet_name . '</h5>
-										<p class="text-muted mb-0">' . $row->sport_atlet_code . '</p>';
+			$subArray[] = '<p class="text-muted mb-0">' . $row->sport_atlet_name . '</p>';
 			$subArray[] = '<p class="text-muted text-center mb-0">' . parseGender($row->sport_atlet_gender) . '</p>';
-			$subArray[] = '<div class="media">
-												<div class="align-self-center me-3">
-													<img src="' . $caborAvatar . '" alt="' . $row->sport_cabor_name . '" class="rounded-circle avatar-sm">
-												</div>
-                        <div class="media-body overflow-hidden my-auto">
-                            <h5 class="text-truncate font-size-14 mb-0">' . $row->sport_cabor_name . '</h5>
-														<p class="text-muted mb-0">Jenis: ' . $row->sport_cabor_type_name . '</p>
-                        </div>
-                    </div>';
+			$subArray[] = ' <p class="text-muted font-size-14 mb-0">' . $row->cabor_name . '</p>';
 			$subArray[] = '<p class="text-muted text-center mb-0">' . $row->sport_atlet_level . '</p>';
 			$subArray[] = '<p class="text-muted text-center mb-0">' . $row->district_type . ' ' . $row->district_name . ', ' . $row->province_name . '</p>';
 			$subArray[] = '<p class="text-muted text-center mb-0">' . parseStatusData($row->sport_atlet_approve)->badge . '</p>';
@@ -429,15 +403,14 @@ class AtletController extends BaseController
 	private function addAtlet()
 	{
 		$requestAtlet = [
-			'sport_cabor_type_id'					=> $this->request->getPost('type'),
-			'sport_atlet_code'						=> $this->libIonix->generateAutoNumber('sport_atlets', 'sport_atlet_code', strtoupper($this->modCabor->fetchData(['sport_cabors.sport_cabor_id' => $this->request->getPost('cabor')])->get()->getRow()->sport_cabor_code) . '-', 10),
+			'cabor_id'								=> $this->request->getPost('cabor'),
 			'sport_atlet_name'						=> ucwords($this->request->getPost('name')),
 			'sport_atlet_email'						=> !empty($this->request->getPost('email')) ? strtolower($this->request->getPost('email')) : NULL,
 			'sport_atlet_level'						=> $this->request->getPost('level'),
-			'sport_atlet_explanation'			=> !empty($this->request->getPost('explanation')) ? ucwords($this->request->getPost('explanation')) : NULL,
+			'sport_atlet_explanation'				=> !empty($this->request->getPost('explanation')) ? ucwords($this->request->getPost('explanation')) : NULL,
 			'sport_atlet_avatar'					=> $this->request->getFile('image')->isValid() ? $this->request->getFile('image')->getRandomName() : NULL,
-			'sport_atlet_approve'					=> isStakeholder() == false ? 3 : 2,
-			'sport_atlet_approve_by'			=> isStakeholder() == false ? $this->libIonix->getUserData(NULL, 'object')->user_id : NULL,
+			'sport_atlet_approve'					=> isStakeholder() == true && $this->configIonix->allowVerifycation == true ? 2 : 3,
+			'sport_atlet_approve_by'			=> isStakeholder() == true && $this->configIonix->allowVerifycation == true ? NULL : $this->libIonix->getUserData(NULL, 'object')->user_id,
 			'sport_atlet_created_by'			=> $this->libIonix->getUserData(NULL, 'object')->user_id,
 			'sport_atlet_ownership'				=> isStakeholder() ? $this->libIonix->getUserData(NULL, 'object')->name : $this->libIonix->getCompanyData()->name,
 		];
@@ -490,7 +463,8 @@ class AtletController extends BaseController
 
 		$output = [
 			'create'						=> !is_dir($config['directory']) ? mkdir($config['directory'], 0777, true) : NULL,
-			'update'						=> $this->libIonix->updateQuery('sport_atlet_info', ['sport_atlet_id' => $query->insert], $requestInfo),
+			'insert_info'					=> $this->libIonix->insertQuery('sport_atlet_info', array_merge($requestInfo,['sport_atlet_id' => $query->insert])),
+			// 'update'						=> $this->libIonix->updateQuery('sport_atlet_info', ['sport_atlet_id' => $query->insert], $requestInfo),
 			'upload'						=> $this->request->getFile('image')->isValid() ? $this->request->getFile('image')->move($config['directory'], $config['fileName'], true) : NULL,
 			'pushNotification'	=> $this->libIonix->pushNotification(),
 		];
@@ -577,13 +551,12 @@ class AtletController extends BaseController
 	private function updateAtlet(object $atletData)
 	{
 		$requestAtlet = [
-			'sport_cabor_type_id'					=> $this->request->getPost('type'),
+			'cabor_id'								=> $this->request->getPost('cabor'),
 			'sport_atlet_name'						=> ucwords($this->request->getPost('fullname')),
 			'sport_atlet_email'						=> !empty($this->request->getPost('email')) ? strtolower($this->request->getPost('email')) : NULL,
 			'sport_atlet_level'						=> $this->request->getPost('level'),
-			'sport_atlet_explanation'			=> !empty($this->request->getPost('explanation')) ? ucwords($this->request->getPost('explanation')) : NULL,
-			'sport_atlet_approve'					=> isStakeholder() == false ? 3 : 2,
-			'sport_atlet_approve_by'			=> isStakeholder() == false ? $this->libIonix->getUserData(NULL, 'object')->user_id : NULL,
+			'sport_atlet_explanation'				=> !empty($this->request->getPost('explanation')) ? ucwords($this->request->getPost('explanation')) : NULL,
+			'sport_atlet_approve'					=> isStakeholder() == true && $this->configIonix->allowVerifycation == true ? 2 : 3,
 			'sport_atlet_ownership'				=> implode(', ', array_column(json_decode(ucwords($this->request->getPost('atlet_ownership'))), 'value')),
 		];
 

@@ -188,25 +188,6 @@ function initButton()
     });
   });
 
-  $('[name="cabor"]').on("change", function () {
-    $.ajax({
-      url:  $('meta[name=site-url]').attr("content")+'sport_atlets/list',
-      data: "format=Dropdown&scope="+$(this).data("scope")+"&id="+$(this).val(),
-      type: "GET",
-      dataType: "HTML",
-    }).done(function(response) {
-      if (!response) {
-        $('[name="type"]').html('<option></option>');
-      } else {
-        $('[name="type"]').html('<option></option>'+response);
-
-        if (type) {
-          $('[name="type"]').val(type).trigger('change');
-        }
-      }
-    });
-  });
-
   $('[name="province"]').on('change', function () {
     $.ajax({
       url:  $('meta[name=site-url]').attr("content")+'areas/list',
@@ -340,8 +321,7 @@ function fetchAtlet() {
     data: "scope="+$('meta[name=scope]').attr("content")+"&format=JSON&id="+$('meta[name=params]').attr("content"),
     type: "GET",
     success: function(response) {
-      $('[name="cabor"]').val(response.data.sport_cabor_id).trigger('change'),
-      $('[name="type"]').val(response.data.sport_cabor_type_id).trigger('change'),
+      $('[name="cabor"]').val(response.data.cabor_id).trigger('change'),
       $('[name="fullname"]').val(response.data.sport_atlet_name),
       $('[name="level"]').val(response.data.sport_atlet_level).trigger('change'),
       $('[name="bio"]').val(response.data.sport_atlet_bio),
@@ -359,8 +339,7 @@ function fetchAtlet() {
 
       $('[name="email"]').val(response.data.sport_atlet_email),
       $('[name="phone"]').val(response.data.sport_atlet_phone);
-
-      type        = response.data.sport_cabor_type_id;
+      
       district    = response.data.sport_atlet_district_id;
       subdistrict = response.data.sport_atlet_sub_district_id;
       village     = response.data.sport_atlet_village_id;

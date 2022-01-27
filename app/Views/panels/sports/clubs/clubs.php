@@ -141,7 +141,7 @@
                 <hr>
 
                 <table id="dt_clubs" class="table table-striped table-borderless align-middle w-100 mt-2">
-                    <thead class="table-<?= $configIonix->colorPrimary;?>">
+                    <thead class="table-<?= $configIonix->colorPrimary; ?>">
                         <tr>
                             <th scope="col" class="text-center align-middle">No</th>
                             <th scope="col" class="text-center align-middle">Nama Klub/Periode/Kode</th>
@@ -202,7 +202,14 @@
                     <label for="sport_organization_id">Organisasi<code>*</code></label>
                     <select class="form-control select2" name="sport_organization_id" aria-hidden="true" data-placeholder="Pilih organisasi..." required>
                         <option></option>
-                        <?php foreach ($data['modOrganization']->fetchData(['sport_organization_created_by' => $userData->user_id,'sport_organization_approve' => 3])->get()->getResult() as $row) : ?>
+                        <?php
+                        $parameters = [
+                                'sport_organization_created_by' => $userData->user_id,
+                                'sport_organization_approve' => 3,
+                                'year'  => session('year')
+                        ]
+                        ?>
+                        <?php foreach ($data['modOrganization']->fetchData($parameters)->get()->getResult() as $row) : ?>
                             <option value="<?= $row->sport_organization_id; ?>"><?= ucwords($row->sport_organization_name); ?></option>
                         <?php endforeach; ?>
                     </select>

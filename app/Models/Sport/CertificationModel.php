@@ -22,8 +22,8 @@ class CertificationModel extends Model
   protected $allowedSearch      = [
                                     'sport_certification_name',
                                     'sport_certification_gender',
-                                    'sport_cabor_name',
-                                    'sport_cabors.sport_cabor_code',
+                                    'cabor_name',
+                                    'cabors.cabor_id',
                                     'sport_certification_number',
                                     'sport_certification_category',
                                     'sport_certification_level',
@@ -31,7 +31,7 @@ class CertificationModel extends Model
                                   ];
 
   protected $columnSearch        = [
-                                     'cabor'      => ['sport_cabors.sport_cabor_code'],
+                                     'cabor'      => ['cabors.cabor_id'],
                                      'category'   => ['sport_certification_category'],
                                      'year'       => ['sport_certification_year'],
                                    ];
@@ -40,7 +40,7 @@ class CertificationModel extends Model
                                      NULL,
                                      'sport_certification_name',
                                      'sport_certification_gender',
-                                     'sport_cabor_code',
+                                     'cabor_id',
                                      NULL,
                                      NULL,
                                      NULL,
@@ -77,7 +77,7 @@ class CertificationModel extends Model
   {
     $query = $this->table($this->table)
                   ->select($this->allowedFields)
-                  ->join('sport_cabors', 'sport_cabors.sport_cabor_code = '.$this->table.'.sport_cabor_code');
+                  ->join('cabors', 'cabors.cabor_id = '.$this->table.'.cabor_id');
 
     if (isset($where)) {
       $query->where($where);
