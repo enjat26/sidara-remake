@@ -84,7 +84,18 @@ function initComponents() {
   });
 }
 
+function submitExport(param){
+  $('[key="export-'+param+'"]').on("click", function () {
+    $("#form-export").attr("action", $("meta[name=site-url]").attr("content")+"youth_trainings/export/"+param);
+    $("#form-export").submit();
+  });
+}
+
 function initButton() {
+  submitExport('print');
+  submitExport('pdf');
+  submitExport('excel');
+
   $('[name="filter-year"]').on("change", function () {
     chartTraining();
   });

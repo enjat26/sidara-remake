@@ -72,7 +72,7 @@
                                 <p class="card-text">Anda dapat memfilter data <strong>Klub Olahraga</strong> berdasarkan</p>
                             </div>
                             <div class="card-body">
-                                <form id="form-export" class="needs-validation" action="<?= panel_url(uri_segment(1) . '/export/print'); ?>" target="_blank" method="GET" novalidate>
+                                <form id="form-export" class="needs-validation" action="" target="_blank" method="GET" novalidate>
                                     <div class="row justify-content-center">
                                         <div class="col-sm-6">
                                             <div class="card border">
@@ -121,7 +121,9 @@
                                                         <i class="mdi mdi-export me-1"></i> Ekspor Data <i class="mdi mdi-chevron-down"></i>
                                                     </button>
                                                     <div class="dropdown-menu dropdown-menu-end" style="margin: 0px;">
-                                                        <a class="dropdown-item" href="javascript:void(0);" onclick="$('#form-export').submit();"><i class="mdi mdi-file-pdf text-danger me-1"></i> Cetak/PDF</a>
+                                                        <a class="dropdown-item" href="javascript:void(0);" key="export-print"><i class="mdi mdi-printer text-dark me-1"></i> Cetak</a>
+                                                        <a class="dropdown-item" href="javascript:void(0);" key="export-pdf"><i class="mdi mdi-file-pdf text-danger me-1"></i> PDF</a>
+                                                        <a class="dropdown-item" href="javascript:void(0);" key="export-excel"><i class="mdi mdi-file-excel text-success me-1"></i> Excel</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -204,9 +206,9 @@
                         <option></option>
                         <?php
                         $parameters = [
-                                'sport_organization_created_by' => $userData->user_id,
-                                'sport_organization_approve' => 3,
-                                'year'  => session('year')
+                            'sport_organization_created_by' => $userData->user_id,
+                            'sport_organization_approve' => 3,
+                            'year'  => session('year')
                         ]
                         ?>
                         <?php foreach ($data['modOrganization']->fetchData($parameters)->get()->getResult() as $row) : ?>

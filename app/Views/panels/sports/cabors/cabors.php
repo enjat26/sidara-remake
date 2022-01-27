@@ -1,13 +1,13 @@
 <?= $this->extend($configIonix->viewLayout['panel']); ?>
 
 <?= $this->section('meta'); ?>
-    <meta name="scope" content="<?= $libIonix->Encode('cabor'); ?>">
+<meta name="scope" content="<?= $libIonix->Encode('cabor'); ?>">
 <?= $this->endSection(); ?>
 
 <?= $this->section('stylesheet'); ?>
-    <?= link_tag($configIonix->assetsFolder['panel']['library'] . 'select2/css/select2.min.css'); ?>
-    <?= link_tag($configIonix->assetsFolder['panel']['library'] . 'bootstrap-datepicker/css/bootstrap-datepicker.min.css'); ?>
-    <?= link_tag($configIonix->assetsFolder['panel']['library'].'dropify/dist/css/dropify.min.css');?>
+<?= link_tag($configIonix->assetsFolder['panel']['library'] . 'select2/css/select2.min.css'); ?>
+<?= link_tag($configIonix->assetsFolder['panel']['library'] . 'bootstrap-datepicker/css/bootstrap-datepicker.min.css'); ?>
+<?= link_tag($configIonix->assetsFolder['panel']['library'] . 'dropify/dist/css/dropify.min.css'); ?>
 <?= $this->endSection(); ?>
 
 <?= $this->section('content'); ?>
@@ -52,8 +52,8 @@
                         <p class="card-title-desc text-justify">
                             Kelola setiap Data <strong>Cabang Olahraga</strong> yang ada di <strong>Provinsi Banten</strong> pada Halaman ini.
                             Informasi <strong>Cabang Olahraga</strong> sangat berguna agar <strong>Publik</strong> dapat mendukung atau bahkan bergabung dengan <strong>Cabang</strong> tersebut.
-                            <?php if (isStakeholder() == true): ?>
-                                Jika Anda menambah atau melakukan perubahan, data tersebut harus melalui tahap verifikasi dari <strong><?= $companyData->name;?></strong> sebelum di tayangkan.
+                            <?php if (isStakeholder() == true) : ?>
+                                Jika Anda menambah atau melakukan perubahan, data tersebut harus melalui tahap verifikasi dari <strong><?= $companyData->name; ?></strong> sebelum di tayangkan.
                             <?php endif; ?>
                         </p>
 
@@ -72,7 +72,7 @@
                                 <p class="card-text">Anda dapat memfilter data <strong>Cabang Olahraga</strong> berdasarkan</p>
                             </div>
                             <div class="card-body">
-                                <form id="form-export" class="needs-validation" action="<?= panel_url(uri_segment(1).'/export/print');?>" target="_blank" method="GET" novalidate>
+                                <form id="form-export" class="needs-validation" action="" target="_blank" method="GET" novalidate>
                                     <div class="row justify-content-center">
                                         <div class="col-sm-6">
                                             <div class="card border">
@@ -121,7 +121,9 @@
                                                         <i class="mdi mdi-export me-1"></i> Ekspor Data <i class="mdi mdi-chevron-down"></i>
                                                     </button>
                                                     <div class="dropdown-menu dropdown-menu-end" style="margin: 0px;">
-                                                        <a class="dropdown-item" href="javascript:void(0);" onclick="$('#form-export').submit();"><i class="mdi mdi-file-pdf text-danger me-1"></i> Cetak/PDF</a>
+                                                        <a class="dropdown-item" href="javascript:void(0);" key="export-print"><i class="mdi mdi-printer text-dark me-1"></i> Cetak</a>
+                                                        <a class="dropdown-item" href="javascript:void(0);" key="export-pdf"><i class="mdi mdi-file-pdf text-danger me-1"></i> PDF</a>
+                                                        <a class="dropdown-item" href="javascript:void(0);" key="export-excel"><i class="mdi mdi-file-excel text-success me-1"></i> Excel</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -141,7 +143,7 @@
                 <hr>
 
                 <table id="dt_cabors" class="table table-striped table-borderless align-middle w-100 mt-2">
-                    <thead class="table-<?= $configIonix->colorPrimary;?>">
+                    <thead class="table-<?= $configIonix->colorPrimary; ?>">
                         <tr>
                             <th scope="col" class="text-center align-middle">No</th>
                             <th scope="col" class="text-center align-middle">Nama Cabang/Periode/Kode</th>
@@ -178,86 +180,86 @@
                 </p>
 
                 <?= customFormOpen('cabor'); ?>
-                    <h5 class="text-center my-md-3">Informasi Dasar</h5>
+                <h5 class="text-center my-md-3">Informasi Dasar</h5>
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group position-relative">
-                                <label for="code">Singkatan (Nama Pendek)</label>
-                                <input type="text" name="code" class="form-control" placeholder="Masukan kode cabang" maxlength="25" data-provide="maxlength">
-                            </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group position-relative">
+                            <label for="code">Singkatan (Nama Pendek)</label>
+                            <input type="text" name="code" class="form-control" placeholder="Masukan kode cabang" maxlength="25" data-provide="maxlength">
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group position-relative">
-                                <label for="year_start">Periode Awal<code>*</code></label>
-                                <div class="input-group" id="datepicker-year">
-                                    <input type="text" name="year_start" class="form-control" placeholder="Pilih tahun" data-date-container='#datepicker-year' data-provide="yearpicker" data-date-autoclose="true" readonly required>
-                                    <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                </div>
-                            </div>
-                        </div>  
-                        <div class="col-md-6">
-                            <div class="form-group position-relative">
-                                <label for="year_end">Periode Akhir<code>*</code></label>
-                                <div class="input-group" id="datepicker-year">
-                                    <input type="text" name="year_end" class="form-control" placeholder="Pilih tahun" data-date-container='#datepicker-year' data-provide="yearpicker" data-date-autoclose="true" readonly required>
-                                    <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group position-relative">
+                            <label for="year_start">Periode Awal<code>*</code></label>
+                            <div class="input-group" id="datepicker-year">
+                                <input type="text" name="year_start" class="form-control" placeholder="Pilih tahun" data-date-container='#datepicker-year' data-provide="yearpicker" data-date-autoclose="true" readonly required>
+                                <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                             </div>
                         </div>
                     </div>
-
-                    <div class="form-group position-relative">
-                        <label for="name">Nama Cabang<code>*</code></label>
-                        <input type="text" name="name" class="form-control" placeholder="Masukan nama cabang" required>
-                    </div>
-
-                    <div class="form-group position-relative">
-                        <label for="leader">Nama Ketua<code>*</code></label>
-                        <input type="text" name="leader" class="form-control" placeholder="Masukan nama ketua cabang" required>
-                    </div>
-
-                    <h5 class="text-center mt-3 mb-3">Informasi Lokasi</h5>
-
-                    <div class="form-group position-relative">
-                        <label for="address">Alamat</label>
-                        <input type="text" name="address" class="form-control" placeholder="Masukan alamat cabang">
-                    </div>
-
-                    <div class="row">
-                        <div class="col-sm-6 col-lg-6">
-                            <div class="form-group position-relative">
-                                <label for="province">Provinsi<code>*</code></label>
-                                <select class="form-control select2" name="province" aria-hidden="true" data-placeholder="Pilih provinsi..." data-scope="<?= $libIonix->Encode('district'); ?>" required>
-                                    <option></option>
-                                    <?php foreach ($data['modProvince']->fetchData(['province_id' => $configIonix->defaultProvince])->get()->getResult() as $row) : ?>
-                                        <option value="<?= $row->province_id; ?>"><?= ucwords($row->province_name); ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-6">
-                            <div class="form-group position-relative">
-                                <label for="district">Kab/Kota<code>*</code></label>
-                                <select class="form-control select2" name="district" aria-hidden="true" data-placeholder="Pilih kab/kota..." data-scope="<?= $libIonix->Encode('subdistrict'); ?>" required></select>
+                    <div class="col-md-6">
+                        <div class="form-group position-relative">
+                            <label for="year_end">Periode Akhir<code>*</code></label>
+                            <div class="input-group" id="datepicker-year">
+                                <input type="text" name="year_end" class="form-control" placeholder="Pilih tahun" data-date-container='#datepicker-year' data-provide="yearpicker" data-date-autoclose="true" readonly required>
+                                <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <h5 class="text-center my-md-3">Lampiran</h5>
+                <div class="form-group position-relative">
+                    <label for="name">Nama Cabang<code>*</code></label>
+                    <input type="text" name="name" class="form-control" placeholder="Masukan nama cabang" required>
+                </div>
 
-                    <div class="form-group position-relative">
-                        <label>Unggah Berkas disini <code>(Max. <?= $configIonix->maximumSize['file'];?>B)</code></label>
-                        <input type="file" name="file" class="dropify" accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/msword, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, application/pdf" data-max-file-size="<?= $configIonix->maximumSize['file'];?>" data-show-errors="true" data-allowed-file-extensions="xls xlsx doc docx pdf">
+                <div class="form-group position-relative">
+                    <label for="leader">Nama Ketua<code>*</code></label>
+                    <input type="text" name="leader" class="form-control" placeholder="Masukan nama ketua cabang" required>
+                </div>
+
+                <h5 class="text-center mt-3 mb-3">Informasi Lokasi</h5>
+
+                <div class="form-group position-relative">
+                    <label for="address">Alamat</label>
+                    <input type="text" name="address" class="form-control" placeholder="Masukan alamat cabang">
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="form-group position-relative">
+                            <label for="province">Provinsi<code>*</code></label>
+                            <select class="form-control select2" name="province" aria-hidden="true" data-placeholder="Pilih provinsi..." data-scope="<?= $libIonix->Encode('district'); ?>" required>
+                                <option></option>
+                                <?php foreach ($data['modProvince']->fetchData(['province_id' => $configIonix->defaultProvince])->get()->getResult() as $row) : ?>
+                                    <option value="<?= $row->province_id; ?>"><?= ucwords($row->province_name); ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
                     </div>
-
-                    <div class="alert alert-success text-center hidden" role="alert" key="file-existing">
-                        <strong>Cabang</strong> ini sudah mengunggah lampiran atau berkas. Jika ingin merubahnya, Anda dapat menggungah berkas yang baru.
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="form-group position-relative">
+                            <label for="district">Kab/Kota<code>*</code></label>
+                            <select class="form-control select2" name="district" aria-hidden="true" data-placeholder="Pilih kab/kota..." data-scope="<?= $libIonix->Encode('subdistrict'); ?>" required></select>
+                        </div>
                     </div>
+                </div>
 
-                    <div class="alert alert-warning text-center hidden" role="alert" key="file-missing">
-                        <strong>Cabang</strong> ini belum memiliki lampiran atau berkas yang diunggah, silahkan untuk menggungahnya.
-                    </div>
+                <h5 class="text-center my-md-3">Lampiran</h5>
+
+                <div class="form-group position-relative">
+                    <label>Unggah Berkas disini <code>(Max. <?= $configIonix->maximumSize['file']; ?>B)</code></label>
+                    <input type="file" name="file" class="dropify" accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/msword, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, application/pdf" data-max-file-size="<?= $configIonix->maximumSize['file']; ?>" data-show-errors="true" data-allowed-file-extensions="xls xlsx doc docx pdf">
+                </div>
+
+                <div class="alert alert-success text-center hidden" role="alert" key="file-existing">
+                    <strong>Cabang</strong> ini sudah mengunggah lampiran atau berkas. Jika ingin merubahnya, Anda dapat menggungah berkas yang baru.
+                </div>
+
+                <div class="alert alert-warning text-center hidden" role="alert" key="file-missing">
+                    <strong>Cabang</strong> ini belum memiliki lampiran atau berkas yang diunggah, silahkan untuk menggungahnya.
+                </div>
                 <?= customFormClose(); ?>
             </div>
             <div class="modal-footer">
@@ -273,10 +275,10 @@
 <?= $this->endSection(); ?>
 
 <?= $this->section('javascript'); ?>
-    <?= script_tag($configIonix->assetsFolder['panel']['library'] . 'select2/js/select2.min.js'); ?>
-    <?= script_tag($configIonix->assetsFolder['panel']['library'] . 'bootstrap-datepicker/js/bootstrap-datepicker.min.js'); ?>
-    <?= script_tag($configIonix->assetsFolder['panel']['library'] . 'bootstrap-datepicker/locales/bootstrap-datepicker.id.min.js'); ?>
-    <?= script_tag($configIonix->assetsFolder['panel']['library'] . 'dropify/dist/js/dropify.min.js');?>
+<?= script_tag($configIonix->assetsFolder['panel']['library'] . 'select2/js/select2.min.js'); ?>
+<?= script_tag($configIonix->assetsFolder['panel']['library'] . 'bootstrap-datepicker/js/bootstrap-datepicker.min.js'); ?>
+<?= script_tag($configIonix->assetsFolder['panel']['library'] . 'bootstrap-datepicker/locales/bootstrap-datepicker.id.min.js'); ?>
+<?= script_tag($configIonix->assetsFolder['panel']['library'] . 'dropify/dist/js/dropify.min.js'); ?>
 
-    <?= script_tag($configIonix->assetsFolder['local'] . 'js/panel/sports/cabors.init.js'); ?>
+<?= script_tag($configIonix->assetsFolder['local'] . 'js/panel/sports/cabors.init.js'); ?>
 <?= $this->endSection(); ?>

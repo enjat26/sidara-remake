@@ -53,7 +53,7 @@ function initComponents() {
   });
 }
 
-function initButton() {
+function initButton() {  
   $('[key="rfs-cabor"]').on("click", function () {
     $('.select2').val('').trigger('change'),
     initializeData();

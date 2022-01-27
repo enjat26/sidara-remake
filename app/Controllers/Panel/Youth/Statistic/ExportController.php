@@ -122,7 +122,8 @@ class ExportController extends BaseController
 			->setCellValue('C1', 'Kota/Kab')
 			->setCellValue('D1', 'Laki-laki')
 			->setCellValue('E1', 'Perempuan')
-			->setCellValue('F1', 'Total');
+			->setCellValue('F1', 'Total')
+			->setCellValue('G1', 'Keterangan');
 
 		$column = 2;
 		$no = 1;
@@ -134,8 +135,7 @@ class ExportController extends BaseController
 				->setCellValue('D' . $column, number_format($row->statistic_male, 0, ",", "."))
 				->setCellValue('E' . $column, number_format($row->statistic_female, 0, ",", "."))
 				->setCellValue('F' . $column, number_format(($row->statistic_male + $row->statistic_female), 0, ",", "."))
-				->setCellValue('G' . $column, $row->asset_management)
-				->setCellValue('H' . $column, $this->libIonix->getUserData(['users.user_id' => $row->asset_created_by], 'object')->name);
+				->setCellValue('G' . $column, ($row->statistic_explanation) ? $row->statistic_explanation : '-');
 			$column++;
 			$no++;
 		}

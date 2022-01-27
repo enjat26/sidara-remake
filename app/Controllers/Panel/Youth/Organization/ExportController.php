@@ -5,6 +5,9 @@ use App\Controllers\BaseController;
 use App\Models\Area\DistrictModel;
 use App\Models\Area\ProvinceModel;
 use App\Models\Youth\OrganizationModel;
+use Dompdf\Dompdf;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 /**
  * Class ExportController
@@ -19,7 +22,7 @@ class ExportController extends BaseController
    * public, private, protected, static and const.
    */
 
-	 protected $allowedExport = ['print'];
+  protected $allowedExport = ['print','pdf','excel'];
 
 	/**
 	 * __construct ()
@@ -35,6 +38,8 @@ class ExportController extends BaseController
 		$this->modDistrict 				= new DistrictModel();
 		$this->modOrganization 		= new OrganizationModel();
 		$this->modProvince 				= new ProvinceModel();
+		$this->dompPdf 						= new Dompdf();
+		$this->spreadsheet					= new Spreadsheet();
 	}
 
 	/*
@@ -53,11 +58,18 @@ class ExportController extends BaseController
 			case 'print':
 				return $this->print();
 				break;
+			case 'pdf':
+				return $this->pdf();
+				break;
+			case 'excel':
+				return $this->excel();
+				break;
 		}
 	}
 
-	private function print()
+	private function data()
 	{
+		
 		$subProvince						= ['province' => NULL];
 		$subDistrict						= ['district' => NULL];
 		$parameters 						= [];
@@ -112,7 +124,62 @@ class ExportController extends BaseController
 			'qrData'						=> core_url('youths/organizations'),
 		];
 
-		return view('panels/youths/organizations/export/print', $this->libIonix->appInit($data));
+		return $data;
+	}
+
+	private function print()
+	{
+		return view('panels/youths/organizations/export/print', $this->libIonix->appInit($this->data()));
+	}
+
+	private function pdf()
+	{
+		$options = $this->dompPdf->getOptions();
+		$options->set(array('isRemoteEnabled' => true));
+		$this->dompPdf->setOptions($options);
+		$this->dompPdf->loadHtml(view('panels/youths/organizations/export/pdf', $this->libIonix->appInit($this->data())));
+		$this->dompPdf->setPaper('A4', 'landscape');
+		$this->dompPdf->render();
+		$this->dompPdf->stream($this->data()['title'], array("Attachment" => false));
+		exit(0);
+	}
+
+	private function excel()
+	{
+		$this->spreadsheet->setActiveSheetIndex(0)
+			->setCellValue('A1', 'No')
+			->setCellValue('B1', 'Nama Sarana/Prasarana')
+			->setCellValue('C1', 'Kategori')
+			->setCellValue('D1', 'Jenis/Tipe')
+			->setCellValue('E1', 'Tahun')
+			->setCellValue('F1', 'Kondisi')
+			->setCellValue('G1', 'Pengelolaan')
+			->setCellValue('H1', 'Oleh');
+
+		$column = 2;
+		$no = 1;
+		foreach ($this->data()['modAsset']->fetchData($this->data()['parameters'])->get()->getResult() as $row) {
+			$this->spreadsheet->setActiveSheetIndex(0)
+				->setCellValue('A' . $column, $no)
+				->setCellValue('B' . $column, $row->asset_name)
+				->setCellValue('C' . $column, $row->asset_type)
+				->setCellValue('D' . $column, $row->asset_category_name)
+				->setCellValue('E' . $column, $row->asset_production_year)
+				->setCellValue('F' . $column, $row->asset_condition)
+				->setCellValue('G' . $column, $row->asset_management)
+				->setCellValue('H' . $column, $this->libIonix->getUserData(['users.user_id' => $row->asset_created_by], 'object')->name);
+			$column++;
+			$no++;
+		}
+
+		$writer = new Xlsx($this->spreadsheet);
+		$filename = $this->data()['title'];
+
+		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		header('Content-Disposition: attachment;filename=' . $filename . '.xlsx');
+		header('Cache-Control: max-age=0');
+
+		$writer->save('php://output');
 	}
 
   // -------------------------------------------------------------------

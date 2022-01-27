@@ -72,7 +72,7 @@
                                 <p class="card-text">Anda dapat memfilter data <strong>Organisasi Olahraga</strong> berdasarkan</p>
                             </div>
                             <div class="card-body">
-                                <form id="form-export" class="needs-validation" action="<?= panel_url(uri_segment(1) . '/export/print'); ?>" target="_blank" method="GET" novalidate>
+                                <form id="form-export" class="needs-validation" action="" target="_blank" method="GET" novalidate>
                                     <div class="row justify-content-center">
                                         <div class="col-sm-6">
                                             <div class="card border">
@@ -121,7 +121,9 @@
                                                         <i class="mdi mdi-export me-1"></i> Ekspor Data <i class="mdi mdi-chevron-down"></i>
                                                     </button>
                                                     <div class="dropdown-menu dropdown-menu-end" style="margin: 0px;">
-                                                        <a class="dropdown-item" href="javascript:void(0);" onclick="$('#form-export').submit();"><i class="mdi mdi-file-pdf text-danger me-1"></i> Cetak/PDF</a>
+                                                        <a class="dropdown-item" href="javascript:void(0);" key="export-print"><i class="mdi mdi-printer text-dark me-1"></i> Cetak</a>
+                                                        <a class="dropdown-item" href="javascript:void(0);" key="export-pdf"><i class="mdi mdi-file-pdf text-danger me-1"></i> PDF</a>
+                                                        <a class="dropdown-item" href="javascript:void(0);" key="export-excel"><i class="mdi mdi-file-excel text-success me-1"></i> Excel</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -141,7 +143,7 @@
                 <hr>
 
                 <table id="dt_organizations" class="table table-striped table-borderless align-middle w-100 mt-2">
-                    <thead class="table-<?= $configIonix->colorPrimary;?>">
+                    <thead class="table-<?= $configIonix->colorPrimary; ?>">
                         <tr>
                             <th scope="col" class="text-center align-middle">No</th>
                             <th scope="col" class="text-center align-middle">Cabang Olahraga</th>
@@ -188,7 +190,7 @@
                             <select class="form-control select2" name="cabor_id" aria-hidden="true" data-placeholder="Pilih cabor..." data-scope="<?= $libIonix->Encode('cabor'); ?>" required>
                                 <option></option>
                                 <option value="1">Tanpa Cabang Olahraga</option>
-                                <?php foreach ($data['modCabor']->fetchData(NULL,true)->get()->getResult() as $row) : ?>
+                                <?php foreach ($data['modCabor']->fetchData(NULL, true)->get()->getResult() as $row) : ?>
                                     <option value="<?= $row->cabor_id; ?>"><?= ucwords($row->cabor_name); ?></option>
                                 <?php endforeach; ?>
                             </select>

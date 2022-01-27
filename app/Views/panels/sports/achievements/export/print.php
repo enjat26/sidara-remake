@@ -106,15 +106,14 @@
                             <div class="media">
                                 <div class="media-body overflow-hidden my-auto">
                                     <h5 class="text-truncate font-size-14 mb-1"><?= $row->sport_atlet_name; ?></h5>
-                                    <p class="text-muted mb-0"><?= $row->sport_atlet_code; ?></p>
                                 </div>
                             </div>
                         </td>
                         <td>
                             <div class="media">
                                 <div class="media-body overflow-hidden my-auto">
-                                    <h5 class="text-truncate font-size-14 mb-1"><?= $row->sport_cabor_name; ?></h5>
-                                    <p class="text-muted mb-0">Jenis: <?= $row->sport_cabor_type_name; ?></p>
+                                    <h5 class="text-truncate font-size-14 mb-1"><?= $row->cabor_name; ?></h5>
+                                    <p class="text-muted mb-0">Kode: <?= $row->cabor_code; ?></p>
                                 </div>
                             </div>
                         </td>

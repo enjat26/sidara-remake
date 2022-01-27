@@ -62,7 +62,18 @@ function initComponents() {
   });
 }
 
+function submitExport(param){
+  $('[key="export-'+param+'"]').on("click", function () {
+    $("#form-export").attr("action", $("meta[name=site-url]").attr("content")+"youth_scouts/export/"+param);
+    $("#form-export").submit();
+  });
+}
+
 function initButton() {
+  submitExport('print');
+  submitExport('pdf');
+  submitExport('excel');
+
   $('[key="rfs-scout"]').on("click", function () {
     $('.select2').val('').trigger('change'),
     initializeData();
@@ -74,21 +85,6 @@ function initButton() {
 
     $('#modal-scout .modal-title').text('Tambah Data Prestasi Pramuka'),
     $('#modal-scout [type="submit"]').text('Tambah');
-  });
-
-  $('[key="export-print"]').on("click", function () {
-    $('#form-export').attr('action', $('meta[name=site-url]').attr("content")+'youth_scouts/export/print'),
-    $('#form-export').submit();
-  });
-
-  $('[key="export-pdf"]').on("click", function () {
-    $('#form-export').attr('action', $('meta[name=site-url]').attr("content")+'youth_scouts/export/pdf'),
-    $('#form-export').submit();
-  });
-
-  $('[key="export-excel"]').on("click", function () {
-    $('#form-export').attr('action', $('meta[name=site-url]').attr("content")+'youth_scouts/export/excel'),
-    $('#form-export').submit();
   });
 
   $('[name="filter-province"]').on('change', function () {

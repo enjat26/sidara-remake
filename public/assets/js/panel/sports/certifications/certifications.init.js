@@ -52,7 +52,18 @@ function initComponents() {
   });
 }
 
+function submitExport(param){
+  $('[key="export-'+param+'"]').on("click", function () {
+    $("#form-export").attr("action", $("meta[name=site-url]").attr("content")+"sport_cabors/export/"+param);
+    $("#form-export").submit();
+  });
+}
+
 function initButton() {
+  submitExport('print');
+  submitExport('pdf');
+  submitExport('excel');
+
   $('[key="rfs-certification"]').on("click", function () {
     $('.select2').val('').trigger('change'),
     initializeData();
